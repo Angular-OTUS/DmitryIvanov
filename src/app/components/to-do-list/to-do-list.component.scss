@@ -1,0 +1,30 @@
+.card {
+  @apply bg-gray-100 border border-gray-300 rounded-lg shadow-lg w-96
+}
+.card-header {
+  @apply p-4
+}
+.card-header__title {
+  @apply text-3xl font-bold text-left
+}
+.card-body {
+  @apply p-4 overflow-y-auto max-h-52
+}
+.todo-list {
+  @apply space-y-2
+}
+.todo-list-item {
+  @apply flex justify-between items-center bg-gray-300 p-2 rounded
+}
+.todo-list-item__btn {
+  @apply text-red-500 hover:text-red-700
+}
+.card-footer {
+  @apply p-4 flex justify-between items-center
+}
+.todo-input {
+  @apply border border-gray-300 rounded-md p-2 w-3/4
+}
+.todo-btn {
+  @apply bg-blue-500 text-white rounded-md p-2 ml-2 hover:bg-blue-600
+}
