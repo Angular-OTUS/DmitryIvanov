@@ -8,13 +8,14 @@
   },
   "homepage": "https://github.com/Angular-OTUS/ToDoList-DmitryIvanov",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "lint": "ng lint",
-    "lint:fix": "ng lint --fix"
+    "ng": "npx ng",
+    "start": "npx ng serve",
+    "build": "npx ng build",
+    "watch": "npx ng build --watch --configuration development",
+    "test": "npx ng test",
+    "lint": "npx ng lint",
+    "lint:fix": "npx ng lint --fix",
+    "prettier": "npx prettier --write ."
   },
   "private": true,
   "dependencies": {
@@ -44,6 +45,8 @@
     "@typescript-eslint/parser": "5.62.0",
     "autoprefixer": "^10.4.20",
     "eslint": "^8.51.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
     "jasmine-core": "~4.6.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
@@ -51,6 +54,8 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "postcss": "^8.4.41",
+    "prettier": "^3.3.3",
+    "prettier-eslint": "^16.3.0",
     "tailwindcss": "^3.4.10",
     "typescript": "~5.1.3"
   }
