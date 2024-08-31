@@ -1,25 +1,25 @@
-<div class="card">
-  <div class="card-header">
-    <h1 class="card-header__title">Todo List</h1>
-  </div>
-  <div class="card-body">
+<mat-card class="todo-list-card">
+  <mat-card-header>
+    <mat-card-title>
+      <h1>Todo List</h1>
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
     <ul class="todo-list">
-      <li class="todo-list-item">
-        <span>Bye a new gaming laptop</span>
-        <button class="todo-list-item__btn">Delete</button>
-      </li>
-      <li class="todo-list-item">
-        <span>Complete previous task</span>
-        <button class="todo-list-item__btn">Delete</button>
-      </li>
-      <li class="todo-list-item">
-        <span>Create some angular app</span>
-        <button class="todo-list-item__btn">Delete</button>
-      </li>
+      <app-to-do-list-item
+        *ngFor="let item of taskItems"
+        [text]="item.text"
+        (deleteEvent)="delTask(item.id)"></app-to-do-list-item>
     </ul>
-  </div>
-  <div class="card-footer">
-    <input type="text" class="todo-input" value="" placeholder="Description of the task" />
-    <button class="todo-btn">Add task</button>
-  </div>
-</div>
+  </mat-card-content>
+
+  <mat-card-footer class="todo-actions">
+    <mat-form-field appearance="outline" class="todo-new-task">
+      <input type="text" matInput [(ngModel)]="newTask" placeholder="Description of the task" />
+    </mat-form-field>
+    <button mat-flat-button (click)="addTask()" class="button button--add" [disabled]="isAddTaskBtnDisabled()">
+      Add task
+    </button>
+  </mat-card-footer>
+</mat-card>
