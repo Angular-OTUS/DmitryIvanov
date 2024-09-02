@@ -1,0 +1,15 @@
+.button:host-context button {
+  color: white;
+}
+
+.button--add:host-context button {
+  background-color: green;
+}
+
+.button--delete:host-context button {
+  background-color: red;
+}
+
+button:disabled {
+  opacity: 50%;
+}

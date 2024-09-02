@@ -6,20 +6,30 @@
   </mat-card-header>
 
   <mat-card-content>
-    <ul class="todo-list">
-      <app-to-do-list-item
-        *ngFor="let item of taskItems"
-        [text]="item.text"
-        (deleteEvent)="delTask(item.id)"></app-to-do-list-item>
-    </ul>
+    <ng-template [ngIf]="isLoading" [ngIfThen]="loading" [ngIfElse]="ready"></ng-template>
+    <ng-template #loading>
+      <div class="spinner">
+        <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+      </div>
+    </ng-template>
+    <ng-template #ready>
+      <ul class="todo-list">
+        <app-to-do-list-item
+          *ngFor="let item of taskItems"
+          [text]="item.text"
+          (deleteEvent)="delTask(item.id)"></app-to-do-list-item>
+      </ul>
+    </ng-template>
   </mat-card-content>
 
   <mat-card-footer class="todo-actions">
     <mat-form-field appearance="outline" class="todo-new-task">
       <input type="text" matInput [(ngModel)]="newTask" placeholder="Description of the task" />
     </mat-form-field>
-    <button mat-flat-button (click)="addTask()" class="button button--add" [disabled]="isAddTaskBtnDisabled()">
-      Add task
-    </button>
+    <app-button
+      title="Add task"
+      (clickEvent)="addTask()"
+      [disabled]="isAddTaskBtnDisabled()"
+      class="button button--add"></app-button>
   </mat-card-footer>
 </mat-card>
