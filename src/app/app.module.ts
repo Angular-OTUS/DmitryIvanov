@@ -10,6 +10,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ButtonComponent } from './Shared/button/button.component';
 
 @NgModule({
   declarations: [AppComponent, ToDoListComponent, ToDoListItemComponent],
@@ -21,6 +23,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatCardModule,
     MatInputModule,
     MatButtonModule,
+    MatProgressSpinnerModule,
+    ButtonComponent,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,4 +1,4 @@
 <li class="todo-list-item">
   <span>{{ text }}</span>
-  <button mat-flat-button class="button button--delete" (click)="onDelete()">Delete</button>
+  <app-button title="Delete" (clickEvent)="onDelete()" class="button button--delete"></app-button>
 </li>
