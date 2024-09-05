@@ -1,4 +1,10 @@
 <li class="todo-list-item">
-  <span>{{ text }}</span>
-  <app-button title="Delete" (clickEvent)="onDelete()" class="button button--delete"></app-button>
+  <span tabindex="0" (click)="onSelect()" (keydown)="onSelect()" appTooltip="Click on a task to see its description">{{
+    text
+  }}</span>
+  <app-button
+    title="Delete"
+    (clickEvent)="onDelete()"
+    appTooltip="Click the button to delete the task"
+    class="button button--delete"></app-button>
 </li>
