@@ -16,20 +16,33 @@
       <ul class="todo-list">
         <app-to-do-list-item
           *ngFor="let item of taskItems"
+          [class.selected]="item.id === selectedItemId"
           [text]="item.text"
-          (deleteEvent)="delTask(item.id)"></app-to-do-list-item>
+          (deleteEvent)="delTask(item.id)"
+          (selectEvent)="selectTask(item.id)"></app-to-do-list-item>
       </ul>
+      <div class="todo-list-item__description" *ngIf="selectedItemId !== null">
+        {{ selectedDescription() }}
+      </div>
     </ng-template>
   </mat-card-content>
 
   <mat-card-footer class="todo-actions">
-    <mat-form-field appearance="outline" class="todo-new-task">
-      <input type="text" matInput [(ngModel)]="newTask" placeholder="Description of the task" />
-    </mat-form-field>
-    <app-button
-      title="Add task"
-      (clickEvent)="addTask()"
-      [disabled]="isAddTaskBtnDisabled()"
-      class="button button--add"></app-button>
+    <div class="todo-actions__row">
+      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="todo-new-task">
+        <input type="text" matInput [(ngModel)]="newTask" placeholder="Name of the task" />
+      </mat-form-field>
+      <app-button
+        title="Add task"
+        appTooltip="Click the button to add a task"
+        (clickEvent)="addTask()"
+        [disabled]="isAddTaskBtnDisabled()"
+        class="button button--add"></app-button>
+    </div>
+    <div class="todo-actions__row">
+      <mat-form-field appearance="outline" subscriptSizing="dynamic">
+        <textarea matInput [(ngModel)]="newDescription" placeholder="Description of the task"></textarea>
+      </mat-form-field>
+    </div>
   </mat-card-footer>
 </mat-card>

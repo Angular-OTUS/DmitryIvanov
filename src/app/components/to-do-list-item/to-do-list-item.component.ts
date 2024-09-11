@@ -8,8 +8,13 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class ToDoListItemComponent {
   @Input({ required: true }) text!: string;
   @Output() deleteEvent = new EventEmitter();
+  @Output() selectEvent = new EventEmitter();
 
-  onDelete(): void {
+  public onDelete(): void {
     this.deleteEvent.emit();
+  }
+
+  public onSelect(): void {
+    this.selectEvent.emit();
   }
 }

@@ -7,3 +7,15 @@
   border-radius: 4px;
   margin-bottom: 5px;
 }
+
+.todo-list-item > span:hover {
+  cursor: pointer;
+}
+
+span:focus {
+  outline: none;
+}
+
+.selected:host-context li {
+  background-color: #e2ebdd;
+}

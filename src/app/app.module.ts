@@ -11,7 +11,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { ButtonComponent } from './Shared/button/button.component';
+import { ButtonComponent } from './Shared/components/button/button.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { TooltipDirective } from './Shared/directives/tooltip/tooltip.directive';
 
 @NgModule({
   declarations: [AppComponent, ToDoListComponent, ToDoListItemComponent],
@@ -25,6 +27,8 @@ import { ButtonComponent } from './Shared/button/button.component';
     MatButtonModule,
     MatProgressSpinnerModule,
     ButtonComponent,
+    MatTooltipModule,
+    TooltipDirective,
   ],
   providers: [],
   bootstrap: [AppComponent],
