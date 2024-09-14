@@ -14,6 +14,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ButtonComponent } from './Shared/components/button/button.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TooltipDirective } from './Shared/directives/tooltip/tooltip.directive';
+import { MatIconModule } from '@angular/material/icon';
+import { ToastModule } from './Shared/components/toast';
 
 @NgModule({
   declarations: [AppComponent, ToDoListComponent, ToDoListItemComponent],
@@ -29,6 +31,8 @@ import { TooltipDirective } from './Shared/directives/tooltip/tooltip.directive'
     ButtonComponent,
     MatTooltipModule,
     TooltipDirective,
+    MatIconModule,
+    ToastModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],

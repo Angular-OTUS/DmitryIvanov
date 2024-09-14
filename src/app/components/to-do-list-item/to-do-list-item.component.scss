@@ -19,3 +19,11 @@ span:focus {
 .selected:host-context li {
   background-color: #e2ebdd;
 }
+
+.form-field {
+  flex: 1;
+}
+
+.button-container {
+  display: flex;
+}
