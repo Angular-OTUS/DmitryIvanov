@@ -18,8 +18,12 @@
           *ngFor="let item of taskItems"
           [class.selected]="item.id === selectedItemId"
           [text]="item.text"
+          [inlineEdit]="inlineEditItemId === item.id"
           (deleteEvent)="delTask(item.id)"
-          (selectEvent)="selectTask(item.id)"></app-to-do-list-item>
+          (selectEvent)="selectTask(item.id)"
+          (inlineEditEnterEvent)="inlineEditEnter(item.id)"
+          (inlineEditSaveEvent)="inlineEditorSave(item.id, $event)"
+          (inlineEditCancelEvent)="inlineEditorCancel(item.id)" />
       </ul>
       <div class="todo-list-item__description" *ngIf="selectedItemId !== null">
         {{ selectedDescription() }}

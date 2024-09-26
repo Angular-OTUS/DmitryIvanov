@@ -1,10 +1,32 @@
 <li class="todo-list-item">
-  <span tabindex="0" (click)="onSelect()" (keydown)="onSelect()" appTooltip="Click on a task to see its description">{{
-    text
-  }}</span>
-  <app-button
-    title="Delete"
-    (clickEvent)="onDelete()"
-    appTooltip="Click the button to delete the task"
-    class="button button--delete"></app-button>
+  <ng-container *ngIf="inlineEdit; else noInlineEdit">
+    <mat-form-field appearance="outline" subscriptSizing="dynamic" class="form-field">
+      <mat-label>Change the task</mat-label>
+      <input matInput type="text" [(ngModel)]="taskInput" />
+      <div matSuffix class="button-container">
+        <button *ngIf="taskInput" mat-icon-button aria-label="Save" (click)="onSave()">
+          <mat-icon>done</mat-icon>
+        </button>
+        <button mat-icon-button aria-label="Cancel" (click)="onCancel()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </mat-form-field>
+  </ng-container>
+
+  <ng-template #noInlineEdit>
+    <span
+      tabindex="0"
+      (click)="onSelect()"
+      (keydown)="onSelect()"
+      (dblclick)="onDblClick()"
+      appTooltip="Click on a task to see its description, or double-click to edit the task text"
+      >{{ text }}</span
+    >
+    <app-button
+      title="Delete"
+      (clickEvent)="onDelete()"
+      appTooltip="Click the button to delete the task"
+      class="button button--delete"></app-button>
+  </ng-template>
 </li>
