@@ -12,13 +12,12 @@ export class ToDoListService {
   ];
 
   public getTaskItems() {
-    return this.items;
+    return [...this.items];
   }
 
   public addTask(newTask: { text: string; description: string }): number {
     const id = 1 + Math.max(0, ...this.items.map(item => item.id));
-    const { text, description } = newTask;
-    this.items.push({ id, text, description });
+    this.items.push({ ...newTask, id });
     return id;
   }
 
@@ -27,6 +26,9 @@ export class ToDoListService {
   }
 
   public updateTaskText(id: number, text: string): void {
-    this.items = this.items.map(item => ({ ...item, text: item.id === id ? text : item.text }));
+    const idx = this.items.findIndex(item => item.id === id);
+    if (~idx) {
+      this.items[idx] = { ...this.items[idx], text };
+    }
   }
 }
