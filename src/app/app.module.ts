@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -48,6 +49,7 @@ import { TooltipDirective } from './Shared/directives/tooltip/tooltip.directive'
     SpinnerComponent,
     MatCheckboxModule,
     MatButtonToggleModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,7 +1,7 @@
 export type TaskItemStatus = 'InProgress' | 'Completed';
 
 export type TaskItem = {
-  id: number;
+  id: string;
   text: string;
   description: string;
   status: TaskItemStatus;

@@ -1,60 +1,30 @@
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { TaskItems, TaskItemStatus } from './to-do-list.types';
+import { environment } from '../../../enviroments/enviroment';
+import { TaskItem, TaskItems } from './to-do-list.types';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ToDoListService {
-  private items: TaskItems = [
-    {
-      id: 1,
-      text: 'Bye a new gaming laptop',
-      description: 'Description for the task Bye a new gaming laptop',
-      status: 'InProgress',
-    },
-    {
-      id: 2,
-      text: 'Complete previous task',
-      description: 'Description for the task Complete previous task',
-      status: 'Completed',
-    },
-    {
-      id: 3,
-      text: 'Create some angular app',
-      description: 'Description for the task Create some angular app',
-      status: 'InProgress',
-    },
-  ];
+  private apiUrl = environment.apiUrl;
 
-  public getTaskItems() {
-    return [...this.items];
+  constructor(private http: HttpClient) {}
+
+  public getTaskItems(): Observable<TaskItems> {
+    return this.http.get<TaskItems>(this.apiUrl);
   }
 
-  public addTask(newTask: { text: string; description: string }): number {
-    const id = 1 + Math.max(0, ...this.items.map(item => item.id));
-    this.items.push({ ...newTask, id, status: 'InProgress' });
-    return id;
+  public addTaskItem(taskItem: TaskItem): Observable<TaskItem> {
+    return this.http.post<TaskItem>(this.apiUrl, taskItem);
   }
 
-  public delTask(id: number): void {
-    this.items = this.items.filter(item => item.id !== id);
+  public updateTaskItem(taskItem: TaskItem): Observable<TaskItem> {
+    return this.http.put<TaskItem>(`${this.apiUrl}/${taskItem.id}`, taskItem);
   }
 
-  private getTaskIdxById(id: number): number {
-    return this.items.findIndex(item => item.id === id);
-  }
-
-  public updateTaskText(id: number, text: string): void {
-    const idx = this.getTaskIdxById(id);
-    if (~idx) {
-      this.items[idx] = { ...this.items[idx], text };
-    }
-  }
-
-  public updateTaskStatus(id: number, status: TaskItemStatus): void {
-    const idx = this.getTaskIdxById(id);
-    if (~idx) {
-      this.items[idx] = { ...this.items[idx], status };
-    }
+  public deleteTaskItem(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }
