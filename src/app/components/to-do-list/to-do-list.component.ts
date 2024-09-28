@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { TaskItems, ToDoListService } from '../../services/to-do-list';
+import { TaskItems, TaskItemStatus, ToDoListService } from '../../services/to-do-list';
 import { ToastService } from '../../Shared/components/toast';
+import { NewTask } from '../to-do-create-item/to-do-create-item.component';
 
 @Component({
   selector: 'app-to-do-list',
@@ -14,14 +15,27 @@ export class ToDoListComponent implements OnInit, OnDestroy {
   ) {}
 
   public taskItems: TaskItems = [];
-  public newTask = '';
-  public newDescription = '';
+  public filter: TaskItemStatus[] = ['InProgress', 'Completed'];
   public isLoading = false;
   public selectedItemId: number | null = null;
   public inlineEditItemId: number | null = null;
 
-  public isAddTaskBtnDisabled(): boolean {
-    return this.newTask.trim().length === 0;
+  public filterChange(event: TaskItemStatus[]): void {
+    this.filter = event;
+  }
+
+  public filteredTaskItems(): TaskItems {
+    return this.taskItems.filter(item => this.filter.includes(item.status));
+  }
+
+  public updateTaskStatus(id: number, status: TaskItemStatus): void {
+    this.toDoListService.updateTaskStatus(id, status);
+    this.taskItems = this.toDoListService.getTaskItems();
+    if (status === 'Completed') {
+      this.toastService.showToast({ text: 'Task completed', type: 'success' });
+    } else {
+      this.toastService.showToast({ text: 'Task in progress', type: 'warning' });
+    }
   }
 
   public delTask(id: number): void {
@@ -34,13 +48,10 @@ export class ToDoListComponent implements OnInit, OnDestroy {
     this.toastService.showToast({ text: 'Task removed', type: 'warning' });
   }
 
-  public addTask(): void {
-    this.toDoListService.addTask({ text: this.newTask, description: this.newDescription });
+  public addTask({ text, description }: NewTask): void {
+    this.toDoListService.addTask({ text, description });
     this.taskItems = this.toDoListService.getTaskItems();
     this.toastService.showToast({ text: 'Task added', type: 'success' });
-
-    this.newTask = '';
-    this.newDescription = '';
   }
 
   public selectTask(id: number): void {
@@ -48,7 +59,7 @@ export class ToDoListComponent implements OnInit, OnDestroy {
   }
 
   public selectedDescription(): string {
-    const selectedItem = this.taskItems.find(item => item.id === this.selectedItemId);
+    const selectedItem = this.filteredTaskItems().find(item => item.id === this.selectedItemId);
     return selectedItem ? selectedItem.description : '';
   }
 
