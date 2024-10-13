@@ -14,11 +14,10 @@ export type NewTask = {
 export class ToDoCreateItemComponent {
   public newTask: NewTask = { text: '', description: '' };
 
-  @Output() addTaskEvent = new EventEmitter<NewTask>();
+  @Output() public addTaskEvent: EventEmitter<NewTask> = new EventEmitter<NewTask>();
 
   public onSubmit(newTaskForm: NgForm): void {
-    console.log(newTaskForm);
-    const { text, description }: NewTask = newTaskForm.value;
+    const { text, description }: NewTask = newTaskForm.value as NewTask;
     this.addTaskEvent.emit({ text, description });
     this.newTask.text = this.newTask.description = '';
   }

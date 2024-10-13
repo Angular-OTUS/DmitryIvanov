@@ -12,11 +12,13 @@ type ButtonType = 'button' | 'submit' | 'reset';
   styleUrls: ['./button.component.scss'],
 })
 export class ButtonComponent {
-  @Input() disabled = false;
-  @Input() type: ButtonType = 'button';
-  @Output() clickEvent = new EventEmitter();
+  @Input() public disabled?: boolean = false;
+  @Input() public type: ButtonType = 'button';
+  @Output() public clickEvent = new EventEmitter();
 
-  public onClick(): void {
+  public onClick(event: MouseEvent): void {
+    event.stopPropagation();
+
     this.clickEvent.emit();
   }
 }

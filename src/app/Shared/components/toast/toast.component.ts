@@ -16,9 +16,9 @@ export class ToastComponent implements OnInit, OnDestroy {
   public iconType: string;
 
   constructor(
-    @Inject(TOAST_DATA) readonly data: ToastData,
-    @Inject(TOAST_REF) readonly ref: ToastRef,
-    @Inject(TOAST_CONFIG_TOKEN) readonly toastConfig: ToastConfig
+    @Inject(TOAST_DATA) public readonly data: ToastData,
+    @Inject(TOAST_REF) public readonly ref: ToastRef,
+    @Inject(TOAST_CONFIG_TOKEN) public readonly toastConfig: ToastConfig
   ) {
     this.iconType = data.type === 'success' ? 'done' : data.type;
   }
@@ -27,7 +27,7 @@ export class ToastComponent implements OnInit, OnDestroy {
     this.ref.close();
   }
 
-  public onFadeFinished(event: AnimationEvent) {
+  public onFadeFinished(event: AnimationEvent): void {
     const { toState } = event as ToastAnimationEvent;
     const isFadeOut = toState === 'closing';
     const itFinished = this.animationState === 'closing';
@@ -37,11 +37,11 @@ export class ToastComponent implements OnInit, OnDestroy {
     }
   }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.intervalId = setTimeout(() => this.close(), 5000);
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     clearTimeout(this.intervalId);
   }
 }

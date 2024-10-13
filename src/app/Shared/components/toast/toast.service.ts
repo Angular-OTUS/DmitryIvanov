@@ -1,4 +1,4 @@
-import { Overlay } from '@angular/cdk/overlay';
+import { GlobalPositionStrategy, Overlay } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { Inject, Injectable, Injector } from '@angular/core';
 
@@ -18,7 +18,7 @@ export class ToastService {
     @Inject(TOAST_CONFIG_TOKEN) private toastConfig: ToastConfig
   ) {}
 
-  public showToast(data: ToastData) {
+  public showToast(data: ToastData): ToastRef {
     const positionStrategy = this.getPositionStrategy();
     const overlayRef = this.overlay.create({ positionStrategy });
 
@@ -33,23 +33,23 @@ export class ToastService {
     return toastRef;
   }
 
-  private getPositionStrategy() {
+  private getPositionStrategy(): GlobalPositionStrategy {
     return this.overlay
       .position()
       .global()
       .top(this.getPosition())
-      .right((this.toastConfig?.position?.right ?? 0) + 'px');
+      .right(String(this.toastConfig?.position?.right ?? '0') + 'px');
   }
 
-  private getPosition() {
+  private getPosition(): string {
     const position =
       this.lastToast && this.lastToast.isVisible()
         ? this.lastToast.getPosition().bottom
         : (this.toastConfig?.position?.top ?? 0);
-    return position + 'px';
+    return String(position) + 'px';
   }
 
-  private getInjector(data: ToastData, toastRef: ToastRef, parentInjector: Injector) {
+  private getInjector(data: ToastData, toastRef: ToastRef, parentInjector: Injector): Injector {
     return Injector.create({
       parent: parentInjector,
       providers: [

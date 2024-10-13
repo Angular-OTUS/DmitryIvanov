@@ -10,8 +10,8 @@ type TaskStatusFilter = TaskItemStatus[];
   styleUrls: ['./to-do-filter.component.scss'],
 })
 export class ToDoFilterComponent {
-  @Input() value: TaskStatusFilter = [];
-  @Output() valueChange = new EventEmitter<TaskStatusFilter>();
+  @Input() public value: TaskStatusFilter = [];
+  @Output() public valueChange: EventEmitter<TaskStatusFilter> = new EventEmitter<TaskStatusFilter>();
 
   public onChange(event: MatButtonToggleChange): void {
     this.valueChange.emit(event.value as TaskStatusFilter);

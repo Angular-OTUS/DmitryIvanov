@@ -1,4 +1,5 @@
-import { catchError, Subject, takeUntil } from 'rxjs';
+import { catchError, Subject, takeUntil, throwError } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TaskItem, TaskItems, TaskItemStatus, ToDoListService } from '../../services/to-do-list';
 import { ToastService } from '../../Shared/components/toast';
@@ -10,18 +11,17 @@ import { NewTask } from '../to-do-create-item/to-do-create-item.component';
   styleUrls: ['./to-do-list.component.scss'],
 })
 export class ToDoListComponent implements OnInit, OnDestroy {
-  private destroy$ = new Subject<void>();
-
-  constructor(
-    private toDoListService: ToDoListService,
-    private toastService: ToastService
-  ) {}
-
   public taskItems: TaskItems = [];
   public filter: TaskItemStatus[] = ['InProgress', 'Completed'];
   public isLoading = false;
   public selectedItemId: string | null = null;
   public inlineEditItemId: string | null = null;
+  private destroy$: Subject<void> = new Subject<void>();
+
+  constructor(
+    private toDoListService: ToDoListService,
+    private toastService: ToastService
+  ) {}
 
   public filterChange(event: TaskItemStatus[]): void {
     this.filter = event;
@@ -46,29 +46,28 @@ export class ToDoListComponent implements OnInit, OnDestroy {
     this.toDoListService
       .getTaskItems()
       .pipe(
-        takeUntil(this.destroy$),
-        catchError(error => {
+        catchError((error: HttpErrorResponse) => {
           this.toastService.showToast({ text: 'Error loading task list.', type: 'warning' });
-          throw new Error(error);
-        })
+          return throwError(error);
+        }),
+        takeUntil(this.destroy$)
       )
-      .subscribe(taskItems => {
+      .subscribe((taskItems: TaskItems) => {
         this.taskItems = taskItems;
         this.isLoading = false;
       });
   }
 
   public addTask({ text, description }: NewTask): void {
-    const nextId = 1 + Math.max(0, ...this.taskItems.map(item => Number(item.id)));
-    const newTaskItem: TaskItem = { id: String(nextId), text, description, status: 'InProgress' };
+    const newTaskItem: TaskItem = { id: String(this.getNextId()), text, description, status: 'InProgress' };
     this.toDoListService
       .addTaskItem(newTaskItem)
       .pipe(
-        takeUntil(this.destroy$),
-        catchError(error => {
+        catchError((error: HttpErrorResponse) => {
           this.toastService.showToast({ text: 'Error adding task.', type: 'warning' });
-          throw new Error(error);
-        })
+          return throwError(error);
+        }),
+        takeUntil(this.destroy$)
       )
       .subscribe(() => {
         this.toastService.showToast({ text: 'Task added', type: 'success' });
@@ -84,21 +83,16 @@ export class ToDoListComponent implements OnInit, OnDestroy {
     this.toDoListService
       .deleteTaskItem(id)
       .pipe(
-        takeUntil(this.destroy$),
-        catchError(error => {
+        catchError((error: HttpErrorResponse) => {
           this.toastService.showToast({ text: 'Error deleting task.', type: 'warning' });
-          throw new Error(error);
-        })
+          return throwError(error);
+        }),
+        takeUntil(this.destroy$)
       )
       .subscribe(() => {
         this.toastService.showToast({ text: 'Task removed', type: 'warning' });
         this.fetchTaskItems();
       });
-  }
-
-  // Возвращает -1 если задача с таким id не найдена
-  private getTaskIdxById(id: string): number {
-    return this.taskItems.findIndex(item => item.id === id);
   }
 
   public updateTaskStatus(id: string, status: TaskItemStatus): void {
@@ -111,18 +105,14 @@ export class ToDoListComponent implements OnInit, OnDestroy {
     this.toDoListService
       .updateTaskItem(updatedTask)
       .pipe(
-        takeUntil(this.destroy$),
-        catchError(error => {
+        catchError((error: HttpErrorResponse) => {
           this.toastService.showToast({ text: 'Error updating task status.', type: 'warning' });
-          throw new Error(error);
-        })
+          return throwError(error);
+        }),
+        takeUntil(this.destroy$)
       )
       .subscribe(() => {
-        if (status === 'Completed') {
-          this.toastService.showToast({ text: 'Task completed', type: 'success' });
-        } else {
-          this.toastService.showToast({ text: 'Task in progress', type: 'warning' });
-        }
+        this.showTaskStatus(status);
         this.fetchTaskItems();
       });
   }
@@ -144,14 +134,15 @@ export class ToDoListComponent implements OnInit, OnDestroy {
     this.toDoListService
       .updateTaskItem(updatedTask)
       .pipe(
-        takeUntil(this.destroy$),
-        catchError(error => {
+        catchError((error: HttpErrorResponse) => {
           this.toastService.showToast({ text: 'Error updating task text.', type: 'warning' });
-          throw new Error(error);
-        })
+          return throwError(error);
+        }),
+        takeUntil(this.destroy$)
       )
       .subscribe(() => {
         this.toastService.showToast({ text: 'The task has been changed', type: 'info' });
+        this.inlineEditItemId = null;
         this.fetchTaskItems();
       });
   }
@@ -169,5 +160,22 @@ export class ToDoListComponent implements OnInit, OnDestroy {
   public ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  private getNextId(): number {
+    return Math.max(0, ...this.taskItems.map(item => Number(item.id))) + 1;
+  }
+
+  // Возвращает -1 если задача с таким id не найдена
+  private getTaskIdxById(id: string): number {
+    return this.taskItems.findIndex(item => item.id === id);
+  }
+
+  private showTaskStatus(status: TaskItemStatus): void {
+    if (status === 'Completed') {
+      this.toastService.showToast({ text: 'Task completed', type: 'success' });
+    } else {
+      this.toastService.showToast({ text: 'Task in progress', type: 'warning' });
+    }
   }
 }

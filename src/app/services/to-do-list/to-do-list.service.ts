@@ -8,7 +8,7 @@ import { TaskItem, TaskItems } from './to-do-list.types';
   providedIn: 'root',
 })
 export class ToDoListService {
-  private apiUrl = environment.apiUrl;
+  private apiUrl: string = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 

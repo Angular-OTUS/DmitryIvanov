@@ -7,18 +7,18 @@ import { TaskItemStatus } from '../../services/to-do-list';
   styleUrls: ['./to-do-list-item.component.scss'],
 })
 export class ToDoListItemComponent {
-  @Input({ required: true }) text!: string;
-  @Input({ required: true }) status!: TaskItemStatus;
-  @Input() inlineEdit = false;
+  @Input({ required: true }) public text?: string;
+  @Input({ required: true }) public status: TaskItemStatus = 'InProgress';
+  @Input() public inlineEdit = false;
 
-  @Output() changeStatusEvent = new EventEmitter<TaskItemStatus>();
+  @Output() public changeStatusEvent: EventEmitter<TaskItemStatus> = new EventEmitter<TaskItemStatus>();
 
-  @Output() deleteEvent = new EventEmitter();
-  @Output() selectEvent = new EventEmitter();
+  @Output() public deleteEvent: EventEmitter<void> = new EventEmitter<void>();
+  @Output() public selectEvent: EventEmitter<void> = new EventEmitter<void>();
 
-  @Output() inlineEditEnterEvent = new EventEmitter();
-  @Output() inlineEditSaveEvent = new EventEmitter<string>();
-  @Output() inlineEditCancelEvent = new EventEmitter();
+  @Output() public inlineEditEnterEvent: EventEmitter<void> = new EventEmitter<void>();
+  @Output() public inlineEditSaveEvent: EventEmitter<string> = new EventEmitter<string>();
+  @Output() public inlineEditCancelEvent: EventEmitter<void> = new EventEmitter<void>();
 
   public taskInput = '';
 
@@ -28,6 +28,8 @@ export class ToDoListItemComponent {
 
   public onStatusClick(event: MouseEvent): void {
     event.preventDefault();
+    event.stopPropagation();
+
     this.changeStatusEvent.emit(this.isStatusCompleted() ? 'InProgress' : 'Completed');
   }
 
@@ -39,8 +41,10 @@ export class ToDoListItemComponent {
     this.selectEvent.emit();
   }
 
-  public onDblClick(): void {
-    this.taskInput = this.text;
+  public onDblClick(event: MouseEvent): void {
+    event.stopPropagation();
+
+    this.taskInput = this.text ?? '';
     this.inlineEditEnterEvent.emit();
   }
 
