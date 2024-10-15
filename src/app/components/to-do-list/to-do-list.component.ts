@@ -1,5 +1,4 @@
-import { catchError, Subject, takeUntil, throwError } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
+import { catchError, Observable, of, Subject, takeUntil, tap } from 'rxjs';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TaskItem, TaskItems, TaskItemStatus, ToDoListService } from '../../services/to-do-list';
 import { ToastService } from '../../Shared/components/toast';
@@ -47,13 +46,7 @@ export class ToDoListComponent implements OnInit, OnDestroy {
 
     this.toDoListService
       .getTaskItems()
-      .pipe(
-        catchError((error: HttpErrorResponse) => {
-          this.toastService.showToast({ text: 'Error loading task list.', type: 'warning' });
-          return throwError(error);
-        }),
-        takeUntil(this.destroy$)
-      )
+      .pipe(catchError(this.handleError<TaskItems>('Error loading task list.', [])), takeUntil(this.destroy$))
       .subscribe((taskItems: TaskItems) => {
         this.taskItems = taskItems;
         this.isLoading = false;
@@ -65,14 +58,11 @@ export class ToDoListComponent implements OnInit, OnDestroy {
     this.toDoListService
       .addTaskItem(newTaskItem)
       .pipe(
-        catchError((error: HttpErrorResponse) => {
-          this.toastService.showToast({ text: 'Error adding task.', type: 'warning' });
-          return throwError(error);
-        }),
+        tap(() => this.toastService.showToast({ text: 'Task added', type: 'success' })),
+        catchError(this.handleError('Error adding task.')),
         takeUntil(this.destroy$)
       )
       .subscribe(() => {
-        this.toastService.showToast({ text: 'Task added', type: 'success' });
         this.fetchTaskItems();
       });
   }
@@ -85,14 +75,11 @@ export class ToDoListComponent implements OnInit, OnDestroy {
     this.toDoListService
       .deleteTaskItem(id)
       .pipe(
-        catchError((error: HttpErrorResponse) => {
-          this.toastService.showToast({ text: 'Error deleting task.', type: 'warning' });
-          return throwError(error);
-        }),
+        tap(() => this.toastService.showToast({ text: 'Task removed', type: 'warning' })),
+        catchError(this.handleError('Error deleting task.')),
         takeUntil(this.destroy$)
       )
       .subscribe(() => {
-        this.toastService.showToast({ text: 'Task removed', type: 'warning' });
         this.fetchTaskItems();
       });
   }
@@ -107,14 +94,11 @@ export class ToDoListComponent implements OnInit, OnDestroy {
     this.toDoListService
       .updateTaskItem(updatedTask)
       .pipe(
-        catchError((error: HttpErrorResponse) => {
-          this.toastService.showToast({ text: 'Error updating task status.', type: 'warning' });
-          return throwError(error);
-        }),
+        tap(() => this.showTaskStatus(status)),
+        catchError(this.handleError('Error updating task status.')),
         takeUntil(this.destroy$)
       )
       .subscribe(() => {
-        this.showTaskStatus(status);
         this.fetchTaskItems();
       });
   }
@@ -136,14 +120,11 @@ export class ToDoListComponent implements OnInit, OnDestroy {
     this.toDoListService
       .updateTaskItem(updatedTask)
       .pipe(
-        catchError((error: HttpErrorResponse) => {
-          this.toastService.showToast({ text: 'Error updating task text.', type: 'warning' });
-          return throwError(error);
-        }),
+        tap(() => this.toastService.showToast({ text: 'The task has been changed', type: 'info' })),
+        catchError(this.handleError('Error updating task text.')),
         takeUntil(this.destroy$)
       )
       .subscribe(() => {
-        this.toastService.showToast({ text: 'The task has been changed', type: 'info' });
         this.inlineEditItemId = null;
         this.fetchTaskItems();
       });
@@ -162,6 +143,13 @@ export class ToDoListComponent implements OnInit, OnDestroy {
   public ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  private handleError<T>(errMsg: string, result?: T) {
+    return (): Observable<T> => {
+      this.toastService.showToast({ text: errMsg, type: 'warning' });
+      return of(result as T);
+    };
   }
 
   private getNextId(): number {
