@@ -6,15 +6,15 @@ export const TOAST_REF = new InjectionToken<ToastRef>('toast-ref');
 export class ToastRef {
   constructor(private readonly overlay: OverlayRef) {}
 
-  close() {
+  public close(): void {
     this.overlay.dispose();
   }
 
-  isVisible() {
-    return this.overlay && this.overlay.overlayElement;
+  public isVisible(): boolean {
+    return this.overlay?.overlayElement instanceof HTMLElement;
   }
 
-  getPosition() {
+  public getPosition(): DOMRect {
     return this.overlay.overlayElement.getBoundingClientRect();
   }
 }

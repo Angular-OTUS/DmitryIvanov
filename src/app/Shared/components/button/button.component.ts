@@ -1,6 +1,8 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+
+type ButtonType = 'button' | 'submit' | 'reset';
 
 @Component({
   selector: 'app-button',
@@ -10,11 +12,13 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrls: ['./button.component.scss'],
 })
 export class ButtonComponent {
-  @Input() title?: string;
-  @Input() disabled = false;
-  @Output() clickEvent = new EventEmitter();
+  @Input() public disabled?: boolean = false;
+  @Input() public type: ButtonType = 'button';
+  @Output() public clickEvent = new EventEmitter();
 
-  public onClick(): void {
+  public onClick(event: MouseEvent): void {
+    event.stopPropagation();
+
     this.clickEvent.emit();
   }
 }

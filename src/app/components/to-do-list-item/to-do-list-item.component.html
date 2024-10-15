@@ -15,18 +15,27 @@
   </ng-container>
 
   <ng-template #noInlineEdit>
-    <span
-      tabindex="0"
-      (click)="onSelect()"
-      (keydown)="onSelect()"
-      (dblclick)="onDblClick()"
-      appTooltip="Click on a task to see its description, or double-click to edit the task text"
-      >{{ text }}</span
-    >
-    <app-button
-      title="Delete"
-      (clickEvent)="onDelete()"
-      appTooltip="Click the button to delete the task"
-      class="button button--delete"></app-button>
+    <div tabindex="0" class="todo-list-item__template-container" (click)="onSelect()" (keydown)="onSelect()">
+      <mat-checkbox [checked]="isStatusCompleted()" (click)="onStatusClick($event)" />
+
+      <div class="todo-list-item__text" appTooltip="Click on a task to see its description">
+        {{ text }}
+      </div>
+
+      <button
+        mat-icon-button
+        aria-label="edit tack"
+        appTooltip="Click to edit the task text"
+        (click)="onDblClick($event)">
+        <mat-icon>edit_note</mat-icon>
+      </button>
+
+      <app-button
+        (clickEvent)="onDelete()"
+        appTooltip="Click the button to delete the task"
+        class="button button--delete">
+        Delete
+      </app-button>
+    </div>
   </ng-template>
 </li>

@@ -7,20 +7,20 @@ import { MatTooltip } from '@angular/material/tooltip';
   standalone: true,
 })
 export class TooltipDirective implements OnInit {
-  @Input('appTooltip') tooltipText!: string;
+  @Input('appTooltip') public tooltipText!: string;
 
   constructor(private matTooltip: MatTooltip) {}
 
-  @HostListener('mouseenter') onMouseEnter() {
+  @HostListener('mouseenter') public onMouseEnter(): void {
     this.matTooltip.message = this.tooltipText;
     this.matTooltip.show();
   }
 
-  @HostListener('mouseleave') onMouseLeave() {
+  @HostListener('mouseleave') public onMouseLeave(): void {
     this.matTooltip.hide();
   }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.matTooltip.position = 'above';
   }
 }

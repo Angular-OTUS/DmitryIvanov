@@ -27,3 +27,14 @@ span:focus {
 .button-container {
   display: flex;
 }
+
+.todo-list-item__text {
+  flex: 1;
+}
+
+.todo-list-item__template-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  cursor: pointer;
+}
