@@ -13,7 +13,7 @@ import { NewTask } from '../to-do-create-item/to-do-create-item.component';
 export class ToDoListComponent implements OnInit, OnDestroy {
   public taskItems: TaskItems = [];
   public filter: TaskItemStatus[] = ['InProgress', 'Completed'];
-  public isLoading = false;
+  public isLoading: boolean = false;
   public selectedItemId: string | null = null;
   public inlineEditItemId: string | null = null;
   private destroy$: Subject<void> = new Subject<void>();
@@ -28,7 +28,7 @@ export class ToDoListComponent implements OnInit, OnDestroy {
   }
 
   public filteredTaskItems(): TaskItems {
-    return this.taskItems.filter(item => this.filter.includes(item.status));
+    return this.taskItems.filter((item: TaskItem) => this.filter.includes(item.status));
   }
 
   public selectTask(id: string): void {
@@ -36,7 +36,9 @@ export class ToDoListComponent implements OnInit, OnDestroy {
   }
 
   public selectedDescription(): string {
-    const selectedItem = this.filteredTaskItems().find(item => item.id === this.selectedItemId);
+    const selectedItem: TaskItem | undefined = this.filteredTaskItems().find(
+      (item: TaskItem) => item.id === this.selectedItemId
+    );
     return selectedItem ? selectedItem.description : '';
   }
 
@@ -96,12 +98,12 @@ export class ToDoListComponent implements OnInit, OnDestroy {
   }
 
   public updateTaskStatus(id: string, status: TaskItemStatus): void {
-    const idx = this.getTaskIdxById(id);
+    const idx: number = this.getTaskIdxById(id);
     if (idx < 0) {
       return;
     }
 
-    const updatedTask = { ...this.taskItems[idx], status };
+    const updatedTask: TaskItem = { ...this.taskItems[idx], status };
     this.toDoListService
       .updateTaskItem(updatedTask)
       .pipe(
@@ -125,12 +127,12 @@ export class ToDoListComponent implements OnInit, OnDestroy {
     if (this.inlineEditItemId !== id) {
       return;
     }
-    const idx = this.getTaskIdxById(id);
+    const idx: number = this.getTaskIdxById(id);
     if (idx < 0) {
       return;
     }
 
-    const updatedTask = { ...this.taskItems[idx], text };
+    const updatedTask: TaskItem = { ...this.taskItems[idx], text };
     this.toDoListService
       .updateTaskItem(updatedTask)
       .pipe(
@@ -163,12 +165,12 @@ export class ToDoListComponent implements OnInit, OnDestroy {
   }
 
   private getNextId(): number {
-    return Math.max(0, ...this.taskItems.map(item => Number(item.id))) + 1;
+    return Math.max(0, ...this.taskItems.map((item: TaskItem) => Number(item.id))) + 1;
   }
 
   // Возвращает -1 если задача с таким id не найдена
   private getTaskIdxById(id: string): number {
-    return this.taskItems.findIndex(item => item.id === id);
+    return this.taskItems.findIndex((item: TaskItem) => item.id === id);
   }
 
   private showTaskStatus(status: TaskItemStatus): void {
