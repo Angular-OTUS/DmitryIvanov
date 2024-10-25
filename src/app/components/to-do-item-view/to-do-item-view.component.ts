@@ -1,6 +1,7 @@
 import { Subject, takeUntil } from 'rxjs';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { RouteParams } from '../../app-routing.module';
 import { TaskItem, TaskItems, ToDoListService } from '../../services';
 
 @Component({
@@ -26,7 +27,7 @@ export class ToDoItemViewComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.route.paramMap
       .pipe(takeUntil(this.destroy$))
-      .subscribe((paramMap: ParamMap) => (this.taskId = paramMap.get('taskId')));
+      .subscribe((paramMap: ParamMap) => (this.taskId = paramMap.get(RouteParams.TaskId)));
 
     this.toDoListService
       .getTaskItems()

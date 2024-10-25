@@ -13,7 +13,7 @@ import { NewTask } from '../to-do-create-item';
 export class ToDoListComponent implements OnInit, OnDestroy {
   public taskItems: TaskItems = [];
   public filter: TaskItemStatus[] = ['InProgress', 'Completed'];
-  public isLoading: boolean = false;
+  public isLoading?: boolean;
   public selectedItemId: string | null = null;
   public inlineEditItemId: string | null = null;
   private destroy$: Subject<void> = new Subject<void>();
@@ -25,12 +25,18 @@ export class ToDoListComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute
   ) {}
 
-  public goToTask(id: string): void {
+  public async goToTask(id: string): Promise<boolean> {
     if (this.selectedItemId === id) {
       return this.clearSelectedItem();
     }
 
-    void this.router.navigate([id], { relativeTo: this.route }).then(() => this.subscribeToChangeSelectedItem());
+    const ready: boolean = await this.router.navigate([id], { relativeTo: this.route });
+
+    if (ready) {
+      this.subscribeToChangeSelectedItem();
+    }
+
+    return ready;
   }
 
   public filterChange(event: TaskItemStatus[]): void {
@@ -60,10 +66,9 @@ export class ToDoListComponent implements OnInit, OnDestroy {
     this.toDoListService.addTaskItem(newTaskItem);
   }
 
-  public delTask(id: string): void {
-    this.toDoListService.deleteTaskItem(id);
-    if (this.selectedItemId === id) {
-      this.clearSelectedItem();
+  public async delTask(id: string): Promise<void> {
+    if (this.selectedItemId !== id || (await this.clearSelectedItem())) {
+      this.toDoListService.deleteTaskItem(id);
     }
   }
 
@@ -111,10 +116,15 @@ export class ToDoListComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  private clearSelectedItem(): void {
-    this.unSubscribeToChangeSelectedItem();
-    this.selectedItemId = null;
-    void this.router.navigateByUrl(`/${RouteTokens.Tasks}`);
+  private async clearSelectedItem(): Promise<boolean> {
+    const ready: boolean = await this.router.navigateByUrl(`/${RouteTokens.Tasks}`);
+
+    if (ready) {
+      this.unSubscribeToChangeSelectedItem();
+      this.selectedItemId = null;
+    }
+
+    return ready;
   }
 
   private unSubscribeToChangeSelectedItem(): void {

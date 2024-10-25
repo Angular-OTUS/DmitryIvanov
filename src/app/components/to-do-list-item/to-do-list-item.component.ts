@@ -9,7 +9,7 @@ import { TaskItemStatus } from '../../services';
 export class ToDoListItemComponent {
   @Input({ required: true }) public text?: string;
   @Input({ required: true }) public status: TaskItemStatus = 'InProgress';
-  @Input() public inlineEdit: boolean = false;
+  @Input() public inlineEdit?: boolean;
 
   @Output() public changeStatusEvent: EventEmitter<TaskItemStatus> = new EventEmitter<TaskItemStatus>();
 
