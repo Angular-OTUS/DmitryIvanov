@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { TaskItemStatus } from '../../services';
 
 @Component({
   selector: 'app-to-do-list-item',
   templateUrl: './to-do-list-item.component.html',
   styleUrls: ['./to-do-list-item.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToDoListItemComponent {
   @Input({ required: true }) public text?: string;

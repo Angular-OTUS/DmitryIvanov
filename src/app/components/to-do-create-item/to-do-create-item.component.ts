@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 export type NewTask = {
@@ -10,6 +10,7 @@ export type NewTask = {
   selector: 'app-to-do-create-item',
   templateUrl: './to-do-create-item.component.html',
   styleUrls: ['./to-do-create-item.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToDoCreateItemComponent {
   public newTask: NewTask = { text: '', description: '' };

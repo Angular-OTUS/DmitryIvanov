@@ -1,5 +1,5 @@
 import { Subject, takeUntil } from 'rxjs';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { RouteParams } from '../../app-routing.module';
 import { TaskItem, TaskItems, ToDoListService } from '../../services';
@@ -8,6 +8,7 @@ import { TaskItem, TaskItems, ToDoListService } from '../../services';
   selector: 'app-to-do-item-view',
   templateUrl: './to-do-item-view.component.html',
   styleUrls: ['./to-do-item-view.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToDoItemViewComponent implements OnInit, OnDestroy {
   private destroy$: Subject<void> = new Subject<void>();
@@ -16,7 +17,8 @@ export class ToDoItemViewComponent implements OnInit, OnDestroy {
 
   constructor(
     private toDoListService: ToDoListService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private cdr: ChangeDetectorRef
   ) {}
 
   public getDescription(): string {
@@ -25,14 +27,18 @@ export class ToDoItemViewComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    this.route.paramMap
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((paramMap: ParamMap) => (this.taskId = paramMap.get(RouteParams.TaskId)));
+    this.route.paramMap.pipe(takeUntil(this.destroy$)).subscribe((paramMap: ParamMap) => {
+      this.taskId = paramMap.get(RouteParams.TaskId);
+      this.cdr.markForCheck();
+    });
 
     this.toDoListService
       .getTaskItems()
       .pipe(takeUntil(this.destroy$))
-      .subscribe((taskItems: TaskItems) => (this.taskItems = taskItems));
+      .subscribe((taskItems: TaskItems) => {
+        this.taskItems = taskItems;
+        this.cdr.markForCheck();
+      });
   }
 
   public ngOnDestroy(): void {

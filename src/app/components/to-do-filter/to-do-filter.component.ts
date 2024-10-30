@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatButtonToggleChange } from '@angular/material/button-toggle';
 import { TaskItemStatus } from '../../services';
 
@@ -8,6 +8,7 @@ type TaskStatusFilter = TaskItemStatus[];
   selector: 'app-to-do-filter',
   templateUrl: './to-do-filter.component.html',
   styleUrls: ['./to-do-filter.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToDoFilterComponent {
   @Input() public value: TaskStatusFilter = [];

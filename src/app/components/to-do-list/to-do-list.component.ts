@@ -1,5 +1,5 @@
 import { Subject, Subscription, takeUntil } from 'rxjs';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { RouteTokens } from '../../app-routing.module';
 import { TaskItem, TaskItems, TaskItemStatus, ToDoListService } from '../../services';
@@ -9,6 +9,7 @@ import { NewTask } from '../to-do-create-item';
   selector: 'app-to-do-list',
   templateUrl: './to-do-list.component.html',
   styleUrls: ['./to-do-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToDoListComponent implements OnInit, OnDestroy {
   public taskItems: TaskItems = [];
@@ -22,7 +23,8 @@ export class ToDoListComponent implements OnInit, OnDestroy {
   constructor(
     private toDoListService: ToDoListService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private cdr: ChangeDetectorRef
   ) {}
 
   public async goToTask(id: string): Promise<boolean> {
@@ -56,6 +58,7 @@ export class ToDoListComponent implements OnInit, OnDestroy {
       .subscribe((taskItems: TaskItems) => {
         this.taskItems = taskItems;
         this.isLoading = false;
+        this.cdr.markForCheck();
       });
 
     this.toDoListService.fetchTaskItems();
@@ -131,6 +134,7 @@ export class ToDoListComponent implements OnInit, OnDestroy {
     if (this.changeSelectedItem) {
       this.changeSelectedItem.unsubscribe();
       this.changeSelectedItem = undefined;
+      this.cdr.markForCheck();
     }
   }
 
@@ -138,7 +142,10 @@ export class ToDoListComponent implements OnInit, OnDestroy {
     if (this.route.firstChild && !this.changeSelectedItem) {
       this.changeSelectedItem = this.route.firstChild.paramMap
         .pipe(takeUntil(this.destroy$))
-        .subscribe((paramMap: ParamMap) => (this.selectedItemId = paramMap.get('taskId')));
+        .subscribe((paramMap: ParamMap) => {
+          this.selectedItemId = paramMap.get('taskId');
+          this.cdr.markForCheck();
+        });
     }
   }
 
