@@ -1,0 +1,11 @@
+:host {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner {
+  display: block;
+  min-height: 100px;
+}

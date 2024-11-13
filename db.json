@@ -17,6 +17,84 @@
       "text": "Create some angular app",
       "description": "Description for the task Create some angular app",
       "status": "InProgress"
+    },
+    {
+      "id": "4",
+      "text": "Grocery Shopping",
+      "description": "Buy groceries for the week, including milk, eggs, bread, and cheese.",
+      "status": "Completed"
+    },
+    {
+      "id": "5",
+      "text": "Book Doctor Appointment",
+      "description": "Schedule a check-up appointment with my primary care physician.",
+      "status": "InProgress"
+    },
+    {
+      "id": "6",
+      "text": "Pay Bills",
+      "description": "Pay all outstanding bills, including utilities, rent, and credit card bills.",
+      "status": "Completed"
+    },
+    {
+      "id": "7",
+      "text": "Clean the House",
+      "description": "Do a thorough cleaning of the entire house, including vacuuming, dusting, and mopping.",
+      "status": "InProgress"
+    },
+    {
+      "id": "8",
+      "text": "Laundry",
+      "description": "Wash, dry, and fold all dirty laundry.",
+      "status": "InProgress"
+    },
+    {
+      "id": "9",
+      "text": "Exercise",
+      "description": "Go for a 30-minute run or workout at the gym.",
+      "status": "InProgress"
+    },
+    {
+      "id": "10",
+      "text": "Read a Book",
+      "description": "Finish reading the book I started last week.",
+      "status": "Completed"
+    },
+    {
+      "id": "11",
+      "text": "Call Mom",
+      "description": "Call my mom to catch up and see how she's doing.",
+      "status": "InProgress"
+    },
+    {
+      "id": "12",
+      "text": "Plan Weekend Trip",
+      "description": "Plan a weekend trip to the mountains or the beach.",
+      "status": "InProgress"
+    },
+    {
+      "id": "13",
+      "text": "Write a Blog Post",
+      "description": "Write and publish a new blog post about my recent experiences.",
+      "status": "InProgress"
+    },
+    {
+      "id": "14",
+      "text": "Learn a new recipe",
+      "description": "Find a new recipe to try and cook it for dinner.",
+      "status": "InProgress"
+    },
+    {
+      "id": "15",
+      "text": "Water plants",
+      "description": "Water all the plants in the house and check for any signs of pests.",
+      "status": "InProgress"
+    },
+    {
+      "id": "16",
+      "text": "Go for a walk",
+      "description": "Go for a relaxing walk in the park or around the neighborhood.",
+      "status": "InProgress"
     }
   ]
 }

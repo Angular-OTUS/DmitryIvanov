@@ -1,0 +1,23 @@
+:host {
+  display: block;
+  width: 650px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+mat-form-field {
+  flex: 1;
+}
+
+app-button {
+  margin-left: 10px;
+}
