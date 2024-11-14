@@ -1,2 +1,2 @@
 export { ToastModule } from './toast.module';
-export { ToastService, ToastData } from './lib';
+export { ToastService } from './lib';

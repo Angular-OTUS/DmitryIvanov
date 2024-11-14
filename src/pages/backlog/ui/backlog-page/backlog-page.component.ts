@@ -4,7 +4,6 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
 import { SelectedTaskId, ToDoListService } from '@entities/to-do-list';
 import { NewTask } from '@features/to-do-create';
-import { ToastData, ToastService } from '@features/toast';
 import { TaskItem, TaskItems, TaskItemStatus } from '@share/api';
 import { RouteParams, RouteTokens } from '@share/lib';
 
@@ -25,7 +24,6 @@ export class BacklogPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly toDoListService: ToDoListService,
-    private readonly toastService: ToastService,
     private readonly cdr: ChangeDetectorRef,
     private readonly route: ActivatedRoute,
     private router: Router
@@ -51,12 +49,8 @@ export class BacklogPageComponent implements OnInit, OnDestroy {
     this.filter = event;
   }
 
-  public filteredTaskItems(): TaskItems {
-    return this.taskItems.filter((item: TaskItem) => this.filter.includes(item.status));
-  }
-
   public onAddTaskItem(newTask: NewTask): void {
-    this.toDoListService.addTaskItem({ ...newTask, id: this.getNextId(), status: 'InProgress' });
+    this.toDoListService.addTaskItem(newTask);
   }
 
   public onChangeTaskItem(taskItem: TaskItem): void {
@@ -97,10 +91,6 @@ export class BacklogPageComponent implements OnInit, OnDestroy {
     }
   }
 
-  private getNextId(): string {
-    return String(Math.max(0, ...this.taskItems.map((item: TaskItem) => Number(item.id))) + 1);
-  }
-
   public ngOnInit(): void {
     this.toDoListService
       .getTaskItems()
@@ -109,16 +99,6 @@ export class BacklogPageComponent implements OnInit, OnDestroy {
         this.taskItems = taskItems;
         this.cdr.markForCheck();
       });
-
-    this.toDoListService
-      .getErrors()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((errorMsg: string) => this.toastService.showToast({ text: errorMsg, type: 'warning' }));
-
-    this.toDoListService
-      .getNotify()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((notify: ToastData) => this.toastService.showToast(notify));
 
     this.subscribeToChangeSelectedItem();
   }

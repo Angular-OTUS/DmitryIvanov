@@ -1,7 +1,8 @@
 import { AnimationEvent } from '@angular/animations';
 import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit } from '@angular/core';
 
-import { TOAST_CONFIG_TOKEN, TOAST_DATA, TOAST_REF, ToastConfig, ToastData, ToastRef } from '../../lib';
+import { ToastData } from '@share/lib';
+import { TOAST_CONFIG_TOKEN, TOAST_DATA, TOAST_REF, ToastConfig, ToastRef } from '../../lib';
 import { ToastAnimationEvent, toastAnimations, ToastAnimationState } from '../toast-animation';
 
 @Component({

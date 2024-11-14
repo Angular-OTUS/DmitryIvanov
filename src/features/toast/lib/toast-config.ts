@@ -1,13 +1,7 @@
 import { InjectionToken } from '@angular/core';
+import { ToastData } from '@share/lib';
 
 export const TOAST_DATA: InjectionToken<ToastData> = new InjectionToken<ToastData>('toast-data');
-
-export interface ToastData {
-  type: ToastType;
-  text?: string;
-}
-
-export type ToastType = 'warning' | 'info' | 'success';
 
 export interface ToastConfig {
   position?: {

@@ -1,1 +1,1 @@
-export * from './backlog-page.component';
+export { BacklogPageComponent } from './backlog-page.component';

@@ -1,0 +1,16 @@
+:host {
+  display: flex;
+  justify-content: center;
+}
+
+.to-do-kanban {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  padding: 10px 10px 0 10px;
+}
+
+.to-do-create {
+  display: flex;
+  padding: 10px;
+}

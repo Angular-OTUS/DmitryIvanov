@@ -2,7 +2,7 @@
   <div class="to-do-list">
     <app-to-do-list
       *ngIf="loaded$ | async; else spinner"
-      [taskItems]="filteredTaskItems()"
+      [taskItems]="taskItems | toDoStatusFilter: filter"
       [selectedTaskId]="selectedTaskId"
       (changeSelectedTaskId)="goToTask($event)"
       (changeTaskItem)="onChangeTaskItem($event)"

@@ -1,0 +1,17 @@
+<app-main-layout title="Board">
+  <div class="to-do-kanban">
+    <app-to-do-kanban
+      *ngIf="loaded$ | async; else spinner"
+      [taskItems]="taskItems"
+      (changeTaskItem)="onChangeTaskItem($event)"
+      (deleteTaskItem)="onDeleteTaskItem($event)">
+    </app-to-do-kanban>
+  </div>
+  <div class="to-do-create">
+    <app-to-do-create (addTaskEvent)="onAddTaskItem($event)"></app-to-do-create>
+  </div>
+</app-main-layout>
+
+<ng-template #spinner>
+  <app-spinner></app-spinner>
+</ng-template>

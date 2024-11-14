@@ -2,8 +2,9 @@ import { GlobalPositionStrategy, Overlay, OverlayRef } from '@angular/cdk/overla
 import { ComponentPortal } from '@angular/cdk/portal';
 import { Inject, Injectable, Injector } from '@angular/core';
 
+import { ToastData } from '@share/lib';
 import { ToastComponent } from '../ui';
-import { TOAST_CONFIG_TOKEN, TOAST_DATA, ToastConfig, ToastData } from './toast-config';
+import { TOAST_CONFIG_TOKEN, TOAST_DATA, ToastConfig } from './toast-config';
 import { TOAST_REF, ToastRef } from './toast-ref';
 
 @Injectable({

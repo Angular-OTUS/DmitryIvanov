@@ -1,14 +1,15 @@
 import { BehaviorSubject, catchError, Observable, of, Subject, tap } from 'rxjs';
 import { Injectable } from '@angular/core';
 
-import { ToastData } from '@features/toast';
 import { TaskItem, TaskItems, TaskItemsService } from '@share/api';
+import { ToastData } from '@share/lib';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ToDoListService {
   private isFirstSubscribe: boolean = true;
+  private nextId: string = '1';
   private taskItemsSubject: BehaviorSubject<TaskItems>;
   private errorsSubject: Subject<string>;
   private notifySubject: Subject<ToastData>;
@@ -48,6 +49,7 @@ export class ToDoListService {
       .getTaskItems()
       .pipe(catchError(this.handleError<TaskItems>('Error loading task list.', [])))
       .subscribe((taskItems: TaskItems) => {
+        this.nextId = String(Math.max(0, ...taskItems.map((item: TaskItem) => Number(item.id))) + 1);
         this.taskItemsSubject.next(taskItems);
         this.loadedSubject.next(true);
       });
@@ -60,9 +62,9 @@ export class ToDoListService {
     };
   }
 
-  public addTaskItem(taskItem: TaskItem): void {
+  public addTaskItem(newTask: { text: string; description: string }): void {
     this.apiClient
-      .addTaskItem(taskItem)
+      .addTaskItem({ ...newTask, id: this.nextId, status: 'InProgress' })
       .pipe(
         tap(() => this.notifySubject.next({ text: 'Task added', type: 'success' })),
         catchError(this.handleError('Error adding task.'))

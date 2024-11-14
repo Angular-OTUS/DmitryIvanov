@@ -4,13 +4,13 @@
       "id": "1",
       "text": "Bye a new gaming laptop",
       "description": "Description for the task Bye a new gaming laptop",
-      "status": "InProgress"
+      "status": "Completed"
     },
     {
       "id": "2",
       "text": "Complete previous task",
       "description": "Description for the task Complete previous task",
-      "status": "Completed"
+      "status": "InProgress"
     },
     {
       "id": "3",
@@ -58,7 +58,7 @@
       "id": "10",
       "text": "Read a Book",
       "description": "Finish reading the book I started last week.",
-      "status": "Completed"
+      "status": "InProgress"
     },
     {
       "id": "11",

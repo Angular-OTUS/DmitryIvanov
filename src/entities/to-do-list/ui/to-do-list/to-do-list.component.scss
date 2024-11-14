@@ -11,6 +11,9 @@ ul {
   padding: 0;
   height: 100%;
   overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: #673ab7 #cdcdcd;
 }
 
 li {
