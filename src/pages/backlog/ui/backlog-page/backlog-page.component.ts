@@ -14,22 +14,20 @@ import { RouteParams, RouteTokens } from '@share/lib';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BacklogPageComponent implements OnInit, OnDestroy {
-  private destroy$: Subject<void> = new Subject<void>();
+  private readonly destroy$: Subject<void> = new Subject<void>();
   private changedSelectedTaskId?: Subscription;
 
   public taskItems: TaskItems = [];
-  public loaded$: Observable<boolean>;
+  public readonly loaded$: Observable<boolean> = this.toDoListService.getLoaded();
   public filter: TaskItemStatus[] = ['InProgress', 'Completed'];
-  public selectedTaskId: SelectedTaskId = null;
+  public selectedTaskId: SelectedTaskId;
 
   constructor(
     private readonly toDoListService: ToDoListService,
     private readonly cdr: ChangeDetectorRef,
     private readonly route: ActivatedRoute,
-    private router: Router
-  ) {
-    this.loaded$ = this.toDoListService.getLoaded();
-  }
+    private readonly router: Router
+  ) {}
 
   public async goToTask(newSelectedTaskId: SelectedTaskId): Promise<boolean> {
     if (newSelectedTaskId === null) {
@@ -57,12 +55,15 @@ export class BacklogPageComponent implements OnInit, OnDestroy {
     this.toDoListService.updateTaskItem(taskItem);
   }
 
-  public onDeleteTaskItem(id: string): void {
+  public async onDeleteTaskItem(id: string): Promise<void> {
+    if (this.selectedTaskId === id) {
+      await this.clearSelectedItem();
+    }
     this.toDoListService.deleteTaskItem(id);
   }
 
   private async clearSelectedItem(): Promise<boolean> {
-    const ready: boolean = await this.router.navigateByUrl(RouteTokens.Backlog);
+    const ready: boolean = await this.router.navigateByUrl(RouteTokens.BACKLOG);
 
     if (ready) {
       this.unSubscribeToChangedSelectedTaskId();
@@ -85,7 +86,7 @@ export class BacklogPageComponent implements OnInit, OnDestroy {
       this.changedSelectedTaskId = this.route.firstChild.paramMap
         .pipe(takeUntil(this.destroy$))
         .subscribe((paramMap: ParamMap) => {
-          this.selectedTaskId = paramMap.get(RouteParams.TaskId);
+          this.selectedTaskId = paramMap.get(RouteParams.TASK_ID);
           this.cdr.markForCheck();
         });
     }

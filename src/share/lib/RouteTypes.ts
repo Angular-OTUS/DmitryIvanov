@@ -1,8 +1,8 @@
 export enum RouteTokens {
-  Backlog = 'backlog',
-  Board = 'board',
+  BACKLOG = 'backlog',
+  BOARD = 'board',
 }
 
 export enum RouteParams {
-  TaskId = 'taskId',
+  TASK_ID = 'taskId',
 }

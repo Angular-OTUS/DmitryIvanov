@@ -6,24 +6,22 @@ import { RouteTokens } from '@share/lib';
 const appRoutes: Routes = [
   {
     path: '',
-    redirectTo: RouteTokens.Backlog,
+    redirectTo: RouteTokens.BACKLOG,
     pathMatch: 'full',
   },
   {
     title: 'Backlog',
-    path: RouteTokens.Backlog,
-    // eslint-disable-next-line @typescript-eslint/typedef
-    loadChildren: () => import('./backlog/backlog.module').then(m => m.BacklogModule),
+    path: RouteTokens.BACKLOG,
+    loadChildren: async () => (await import('./backlog/backlog.module')).BacklogModule,
   },
   {
     title: 'Board',
-    path: RouteTokens.Board,
-    // eslint-disable-next-line @typescript-eslint/typedef
-    loadChildren: () => import('./board/board.module').then(m => m.BoardModule),
+    path: RouteTokens.BOARD,
+    loadChildren: async () => (await import('./board/board.module')).BoardModule,
   },
   {
     path: '**',
-    redirectTo: `/${RouteTokens.Backlog}`,
+    redirectTo: `/${RouteTokens.BACKLOG}`,
   },
 ];
 

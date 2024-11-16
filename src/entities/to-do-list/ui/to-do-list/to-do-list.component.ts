@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 import { TaskItem, TaskItems, TaskItemStatus } from '@share/api';
 import { ToDoListItemComponent } from '../to-do-list-item';
 
-export type SelectedTaskId = string | null;
+export type SelectedTaskId = string | undefined | null;
 
 @Component({
   selector: 'app-to-do-list',
@@ -16,7 +16,7 @@ export type SelectedTaskId = string | null;
 })
 export class ToDoListComponent {
   @Input() public taskItems: TaskItems = [];
-  @Input() public selectedTaskId: SelectedTaskId = null;
+  @Input() public selectedTaskId: SelectedTaskId;
   @Output() public changeSelectedTaskId: EventEmitter<SelectedTaskId> = new EventEmitter<SelectedTaskId>();
   @Output() public changeTaskItem: EventEmitter<TaskItem> = new EventEmitter<TaskItem>();
   @Output() public deleteTaskItem: EventEmitter<string> = new EventEmitter<string>();

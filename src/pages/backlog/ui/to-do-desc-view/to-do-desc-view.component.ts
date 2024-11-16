@@ -17,10 +17,10 @@ import { SpinnerComponent } from '@share/ui';
   imports: [AsyncPipe, NgIf, SpinnerComponent],
 })
 export class ToDoDescViewComponent implements OnInit, OnDestroy {
-  private destroy$: Subject<void> = new Subject<void>();
-  private taskId: SelectedTaskId = null;
+  private readonly destroy$: Subject<void> = new Subject<void>();
+  private taskId: SelectedTaskId;
   private taskItems: TaskItems = [];
-  public loaded$: Observable<boolean>;
+  public readonly loaded$: Observable<boolean> = this.toDoListService.getLoaded();
 
   public getDescription(): string {
     const taskItem: TaskItem | undefined = this.taskItems.find((item: TaskItem) => item.id === this.taskId);
@@ -31,13 +31,11 @@ export class ToDoDescViewComponent implements OnInit, OnDestroy {
     private toDoListService: ToDoListService,
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef
-  ) {
-    this.loaded$ = this.toDoListService.getLoaded();
-  }
+  ) {}
 
   public ngOnInit(): void {
     this.route.paramMap.pipe(takeUntil(this.destroy$)).subscribe((paramMap: ParamMap) => {
-      this.taskId = paramMap.get(RouteParams.TaskId);
+      this.taskId = paramMap.get(RouteParams.TASK_ID);
       this.cdr.markForCheck();
     });
 

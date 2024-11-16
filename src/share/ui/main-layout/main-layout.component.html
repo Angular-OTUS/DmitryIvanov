@@ -2,8 +2,8 @@
   <mat-sidenav #sidenav fixedInViewport role="navigation" mode="side" opened>
     <mat-toolbar color="primary">TaskBoard</mat-toolbar>
     <mat-nav-list role="navigation">
-      <a mat-list-item [routerLink]="'/' + RouteTokens.Backlog" routerLinkActive="active">Backlog</a>
-      <a mat-list-item [routerLink]="'/' + RouteTokens.Board" routerLinkActive="active">Board</a>
+      <a mat-list-item [routerLink]="'/' + RouteTokens.BACKLOG" routerLinkActive="active">Backlog</a>
+      <a mat-list-item [routerLink]="'/' + RouteTokens.BOARD" routerLinkActive="active">Board</a>
     </mat-nav-list>
     <ng-content select=".sidenav"></ng-content>
   </mat-sidenav>

@@ -13,7 +13,7 @@ import { ToDoInlineEditComponent } from '../to-do-inline-edit';
   styleUrls: ['./to-do-list-item.component.scss'],
 })
 export class ToDoListItemComponent {
-  public inlineEdit: boolean = false;
+  public inlineEdit?: boolean;
 
   @Input() public taskItem?: TaskItem;
   @Output() public selectEvent: EventEmitter<void> = new EventEmitter<void>();

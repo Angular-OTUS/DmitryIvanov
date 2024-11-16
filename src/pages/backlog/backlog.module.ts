@@ -14,7 +14,7 @@ const routes: Routes = [
     component: BacklogPageComponent,
     children: [
       {
-        path: `:${RouteParams.TaskId}`,
+        path: `:${RouteParams.TASK_ID}`,
         loadComponent: () =>
           // eslint-disable-next-line @typescript-eslint/typedef
           import('./ui/to-do-desc-view/to-do-desc-view.component').then(c => c.ToDoDescViewComponent),

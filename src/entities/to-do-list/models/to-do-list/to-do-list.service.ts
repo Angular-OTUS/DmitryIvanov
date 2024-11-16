@@ -10,17 +10,12 @@ import { ToastData } from '@share/lib';
 export class ToDoListService {
   private isFirstSubscribe: boolean = true;
   private nextId: string = '1';
-  private taskItemsSubject: BehaviorSubject<TaskItems>;
-  private errorsSubject: Subject<string>;
-  private notifySubject: Subject<ToastData>;
-  private loadedSubject: BehaviorSubject<boolean>;
+  private readonly taskItemsSubject: BehaviorSubject<TaskItems> = new BehaviorSubject<TaskItems>([]);
+  private readonly errorsSubject: Subject<string> = new Subject<string>();
+  private readonly notifySubject: Subject<ToastData> = new Subject<ToastData>();
+  private readonly loadedSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  constructor(private readonly apiClient: TaskItemsService) {
-    this.taskItemsSubject = new BehaviorSubject<TaskItems>([]);
-    this.errorsSubject = new Subject<string>();
-    this.notifySubject = new Subject<ToastData>();
-    this.loadedSubject = new BehaviorSubject<boolean>(false);
-  }
+  constructor(private readonly apiClient: TaskItemsService) {}
 
   public getTaskItems(): Observable<TaskItems> {
     if (this.isFirstSubscribe) {
@@ -55,8 +50,8 @@ export class ToDoListService {
       });
   }
 
-  private handleError<T>(errMsg: string, result?: T) {
-    return (): Observable<T> => {
+  private handleError<T>(errMsg: string, result?: T): () => Observable<T> {
+    return () => {
       this.errorsSubject.next(errMsg);
       return of(result as T);
     };

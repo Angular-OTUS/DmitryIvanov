@@ -12,17 +12,15 @@ import { TaskItem, TaskItems } from '@share/api';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BoardPageComponent implements OnInit, OnDestroy {
-  private destroy$: Subject<void> = new Subject<void>();
+  private readonly destroy$: Subject<void> = new Subject<void>();
 
   public taskItems: TaskItems = [];
-  public loaded$: Observable<boolean>;
+  public readonly loaded$: Observable<boolean> = this.toDoListService.getLoaded();
 
   constructor(
     private readonly toDoListService: ToDoListService,
     private readonly cdr: ChangeDetectorRef
-  ) {
-    this.loaded$ = this.toDoListService.getLoaded();
-  }
+  ) {}
 
   public onAddTaskItem(newTask: NewTask): void {
     this.toDoListService.addTaskItem(newTask);

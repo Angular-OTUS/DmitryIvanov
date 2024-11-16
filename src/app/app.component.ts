@@ -12,7 +12,7 @@ import { ToastData } from '@share/lib';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit, OnDestroy {
-  private destroy$: Subject<void> = new Subject<void>();
+  private readonly destroy$: Subject<void> = new Subject<void>();
 
   constructor(
     private readonly toDoListService: ToDoListService,
