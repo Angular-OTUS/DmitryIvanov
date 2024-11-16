@@ -1,0 +1,11 @@
+<ul>
+  <li *ngFor="let taskItem of taskItems" [class.selected]="taskItem.id === selectedTaskId">
+    <app-to-do-list-item
+      [taskItem]="taskItem"
+      (selectEvent)="onSelect(taskItem.id)"
+      (changeStatusEvent)="onChangeTaskStatus(taskItem, $event)"
+      (changeTextEvent)="onChangeTaskText(taskItem, $event)"
+      (deleteEvent)="onDeleteTaskItem(taskItem.id)">
+    </app-to-do-list-item>
+  </li>
+</ul>

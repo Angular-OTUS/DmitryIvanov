@@ -1,0 +1,5 @@
+<div *ngIf="loaded$ | async; else spinner">{{ getDescription() }}</div>
+
+<ng-template #spinner>
+  <app-spinner></app-spinner>
+</ng-template>

@@ -1,0 +1,22 @@
+<ng-container *ngIf="inlineEdit; else noInlineEdit">
+  <app-to-do-inline-edit [text]="taskItem?.text" (save)="onEditTextSave($event)" (cancel)="onEditTextCancel()" />
+</ng-container>
+
+<ng-template #noInlineEdit>
+  <div class="no-inline-edit">
+    <div class="task-text">{{ taskItem?.text }}</div>
+
+    <button mat-icon-button aria-label="edit tack" appTooltip="Click to edit the task text" (click)="onEditText()">
+      <mat-icon>edit_note</mat-icon>
+    </button>
+
+    <app-button
+      (clickEvent)="onDelete()"
+      appTooltip="Click the button to delete the task"
+      class="button button--delete">
+      Delete
+    </app-button>
+  </div>
+</ng-template>
+
+<div class="desc mat-caption">{{ taskItem?.description }}</div>

@@ -1,0 +1,24 @@
+<app-to-do-kanban-column
+  title="In progress"
+  cdkDropList
+  cdkDropListOrientation="vertical"
+  #inProgressList="cdkDropList"
+  (cdkDropListDropped)="drop($event)"
+  [cdkDropListConnectedTo]="completedList"
+  cdkDropListData="InProgress"
+  [columnTaskItems]="taskItems | toDoStatusFilter: ['InProgress']"
+  (changeTaskItem)="onChangeTaskItem($event)"
+  (deleteTaskItem)="onDeleteTaskItem($event)">
+</app-to-do-kanban-column>
+<app-to-do-kanban-column
+  title="Completed"
+  cdkDropList
+  cdkDropListOrientation="vertical"
+  #completedList="cdkDropList"
+  (cdkDropListDropped)="drop($event)"
+  [cdkDropListConnectedTo]="inProgressList"
+  cdkDropListData="Completed"
+  [columnTaskItems]="taskItems | toDoStatusFilter: ['Completed']"
+  (changeTaskItem)="onChangeTaskItem($event)"
+  (deleteTaskItem)="onDeleteTaskItem($event)">
+</app-to-do-kanban-column>

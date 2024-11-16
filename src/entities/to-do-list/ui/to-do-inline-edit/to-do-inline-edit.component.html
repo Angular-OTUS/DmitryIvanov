@@ -1,0 +1,12 @@
+<mat-form-field appearance="outline" subscriptSizing="dynamic" class="form-field">
+  <mat-label>Change the task</mat-label>
+  <input matInput type="text" [(ngModel)]="updatedText" />
+  <div matSuffix class="button-container">
+    <button *ngIf="isSaveReady()" mat-icon-button aria-label="Save" (click)="onSave($event)">
+      <mat-icon>done</mat-icon>
+    </button>
+    <button mat-icon-button aria-label="Cancel" (click)="onCancel($event)">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</mat-form-field>

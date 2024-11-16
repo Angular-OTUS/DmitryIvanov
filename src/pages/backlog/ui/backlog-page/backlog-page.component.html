@@ -1,0 +1,22 @@
+<app-main-layout title="Backlog">
+  <div class="to-do-list">
+    <app-to-do-list
+      *ngIf="loaded$ | async; else spinner"
+      [taskItems]="taskItems | toDoStatusFilter: filter"
+      [selectedTaskId]="selectedTaskId"
+      (changeSelectedTaskId)="goToTask($event)"
+      (changeTaskItem)="onChangeTaskItem($event)"
+      (deleteTaskItem)="onDeleteTaskItem($event)">
+    </app-to-do-list>
+    <router-outlet></router-outlet>
+  </div>
+  <div class="to-do-create">
+    <app-to-do-create (addTaskEvent)="onAddTaskItem($event)"></app-to-do-create>
+  </div>
+
+  <app-to-do-filter class="sidenav" [value]="filter" (valueChange)="onFilterChange($event)">Тест</app-to-do-filter>
+</app-main-layout>
+
+<ng-template #spinner>
+  <app-spinner></app-spinner>
+</ng-template>

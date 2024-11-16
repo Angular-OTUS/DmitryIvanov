@@ -1,0 +1,18 @@
+:host {
+  flex: 1;
+  display: flex;
+}
+
+.button-container {
+  display: flex;
+}
+
+.mat-mdc-icon-button.mat-mdc-button-base {
+  height: 32px;
+  width: 32px;
+  padding: 4px;
+}
+
+.form-field {
+  flex: 1;
+}

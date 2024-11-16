@@ -1,0 +1,32 @@
+:host {
+  display: block;
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin: -10px 0 0 -10px;
+  list-style: none;
+  padding: 0;
+  height: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: #673ab7 #cdcdcd;
+}
+
+li {
+  display: block;
+  width: 300px;
+  margin-top: 10px;
+  margin-left: 10px;
+  padding: 10px;
+  background-color: #eee;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+li.selected {
+  background-color: #e2ebdd;
+}
