@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 import { RouterModule, Routes } from '@angular/router';
-import { ToDoKanbanComponent, ToDoListComponent } from '@entities/to-do-list';
+import { ToDoKanbanComponent, ToDoListComponent } from '@entities/to-do';
 import { ToDoCreateComponent } from '@features/to-do-create';
 import { MainLayoutComponent, SpinnerComponent, UiKitModule } from '@share/ui';
 import { BoardPageComponent } from './ui';

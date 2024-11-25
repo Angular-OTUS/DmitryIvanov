@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, TrackByFunction } from '@angular/core';
 
-import { TaskItem, TaskItems, TaskItemStatus } from '@share/api';
+import { TaskItem, TaskItems, TaskItemStatus, taskItemTrackBy } from '@share/api';
 import { ToDoListItemComponent } from '../to-do-list-item';
 
-export type SelectedTaskId = string | undefined | null;
+export type SelectedTaskId = string | undefined;
 
 @Component({
   selector: 'app-to-do-list',
@@ -15,6 +15,8 @@ export type SelectedTaskId = string | undefined | null;
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToDoListComponent {
+  public readonly taskItemTrackBy: TrackByFunction<TaskItem> = taskItemTrackBy;
+
   @Input() public taskItems: TaskItems = [];
   @Input() public selectedTaskId: SelectedTaskId;
   @Output() public changeSelectedTaskId: EventEmitter<SelectedTaskId> = new EventEmitter<SelectedTaskId>();
@@ -22,7 +24,7 @@ export class ToDoListComponent {
   @Output() public deleteTaskItem: EventEmitter<string> = new EventEmitter<string>();
 
   public onSelect(taskId: string): void {
-    this.changeSelectedTaskId.emit(taskId === this.selectedTaskId ? null : taskId);
+    this.changeSelectedTaskId.emit(taskId === this.selectedTaskId ? undefined : taskId);
   }
 
   public onChangeTaskStatus(oldTaskItem: TaskItem, newTaskStatus: TaskItemStatus): void {

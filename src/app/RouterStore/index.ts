@@ -1,0 +1,1 @@
+export { AppSerializer } from './serializer';

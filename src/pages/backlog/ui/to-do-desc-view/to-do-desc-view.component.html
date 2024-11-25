@@ -1,4 +1,4 @@
-<div *ngIf="loaded$ | async; else spinner">{{ getDescription() }}</div>
+<div *ngIf="toDoFacadeService.loaded$ | async; else spinner">{{ getDescription() }}</div>
 
 <ng-template #spinner>
   <app-spinner></app-spinner>

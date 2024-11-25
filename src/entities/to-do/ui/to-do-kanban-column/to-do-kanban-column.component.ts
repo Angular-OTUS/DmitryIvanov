@@ -1,8 +1,8 @@
 import { CdkDrag } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, TrackByFunction } from '@angular/core';
 
-import { TaskItem, TaskItems } from '@share/api';
+import { TaskItem, TaskItems, taskItemTrackBy } from '@share/api';
 import { UiKitModule } from '@share/ui';
 import { ToDoKanbanItemComponent } from '../to-do-kanban-item';
 
@@ -15,6 +15,8 @@ import { ToDoKanbanItemComponent } from '../to-do-kanban-item';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToDoKanbanColumnComponent {
+  public readonly taskItemTrackBy: TrackByFunction<TaskItem> = taskItemTrackBy;
+
   @Input() public title: string = '';
   @Input() public columnTaskItems: TaskItems = [];
   @Output() public changeTaskItem: EventEmitter<TaskItem> = new EventEmitter<TaskItem>();

@@ -1,8 +1,8 @@
 <app-main-layout title="Board">
   <div class="to-do-kanban">
     <app-to-do-kanban
-      *ngIf="loaded$ | async; else spinner"
-      [taskItems]="taskItems"
+      *ngIf="toDoFacadeService.loaded$ | async; else spinner"
+      [taskItems]="(toDoFacadeService.taskItems$ | async) ?? []"
       (changeTaskItem)="onChangeTaskItem($event)"
       (deleteTaskItem)="onDeleteTaskItem($event)">
     </app-to-do-kanban>

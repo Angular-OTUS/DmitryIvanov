@@ -1,3 +1,4 @@
+import { BehaviorSubject, Observable } from 'rxjs';
 import { GlobalPositionStrategy, Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { Inject, Injectable, Injector } from '@angular/core';
@@ -7,17 +8,24 @@ import { ToastComponent } from '../ui';
 import { TOAST_CONFIG_TOKEN, TOAST_DATA, ToastConfig } from './toast-config';
 import { TOAST_REF, ToastRef } from './toast-ref';
 
+type ToastStream = ToastData | undefined;
+
 @Injectable({
   providedIn: 'root',
 })
 export class ToastService {
   private lastToast?: ToastRef;
+  private toastsSubject: BehaviorSubject<ToastStream> = new BehaviorSubject<ToastStream>(undefined);
 
   constructor(
     private overlay: Overlay,
     private parentInjector: Injector,
     @Inject(TOAST_CONFIG_TOKEN) private toastConfig: ToastConfig
   ) {}
+
+  public get toasts$(): Observable<ToastStream> {
+    return this.toastsSubject.asObservable();
+  }
 
   public showToast(data: ToastData): ToastRef {
     const positionStrategy: GlobalPositionStrategy = this.getPositionStrategy();
@@ -30,6 +38,8 @@ export class ToastService {
     const toastPortal: ComponentPortal<ToastComponent> = new ComponentPortal(ToastComponent, null, injector);
 
     overlayRef.attach(toastPortal);
+
+    this.toastsSubject.next(data);
 
     return toastRef;
   }

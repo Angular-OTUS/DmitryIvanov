@@ -113,6 +113,9 @@
         "@typescript-eslint/no-inferrable-types": "off"
       },
       "settings": {
+        "import/parsers": {
+          "@typescript-eslint/parser": [".ts", ".tsx"]
+        },
         "import/resolver": {
           "typescript": {
             "alwaysTryTypes": true,
@@ -137,6 +140,10 @@
           }
         ]
       }
+    },
+    {
+      "files": ["*.ts"],
+      "extends": ["plugin:@ngrx/strict-requiring-type-checking"]
     }
   ]
 }

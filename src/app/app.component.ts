@@ -1,7 +1,7 @@
-import { Subject, takeUntil } from 'rxjs';
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-import { ToDoListService } from '@entities/to-do-list';
+import { ToDoNotificationsService } from '@entities/to-do';
 import { ToastService } from '@features/toast';
 import { ToastData } from '@share/lib';
 
@@ -11,28 +11,24 @@ import { ToastData } from '@share/lib';
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent implements OnInit, OnDestroy {
-  private readonly destroy$: Subject<void> = new Subject<void>();
+export class AppComponent implements OnInit {
+  private readonly destroyRef: DestroyRef = inject(DestroyRef);
 
   constructor(
-    private readonly toDoListService: ToDoListService,
+    private readonly toDoNotifications: ToDoNotificationsService,
     private readonly toastService: ToastService
   ) {}
 
   public ngOnInit(): void {
-    this.toDoListService
-      .getErrors()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((errorMsg: string) => this.toastService.showToast({ text: errorMsg, type: 'warning' }));
+    this.toDoNotifications.successNotifications$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((toastData: ToastData) => this.toastService.showToast(toastData));
 
-    this.toDoListService
-      .getNotify()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((notify: ToastData) => this.toastService.showToast(notify));
-  }
-
-  public ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+    this.toDoNotifications.failureNotifications$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((text: string) =>
+      this.toastService.showToast({
+        text,
+        type: 'warning',
+      })
+    );
   }
 }
