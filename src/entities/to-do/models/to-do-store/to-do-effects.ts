@@ -1,4 +1,4 @@
-import { catchError, filter, map, Observable, of, switchMap, tap } from 'rxjs';
+import { catchError, exhaustMap, filter, map, Observable, of, switchMap, tap } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
@@ -40,7 +40,7 @@ export class ToDoEffects {
     return this.actions$.pipe(
       ofType(ToDoActions.addTask),
       concatLatestFrom(() => this.store.select(selectNextId)),
-      switchMap(([action, nextId]: [ReturnType<typeof ToDoActions.addTask>, string]) => {
+      exhaustMap(([action, nextId]: [ReturnType<typeof ToDoActions.addTask>, string]) => {
         return this.apiClient
           .addTaskItem({
             id: nextId,
@@ -69,7 +69,7 @@ export class ToDoEffects {
   > = createEffect(() => {
     return this.actions$.pipe(
       ofType(ToDoActions.updateTask),
-      switchMap(({ taskItem }: { taskItem: TaskItem }) => {
+      exhaustMap(({ taskItem }: { taskItem: TaskItem }) => {
         return this.apiClient.updateTaskItem(taskItem).pipe(
           map(() => ToDoActions.updateTaskSuccess()),
           catchError((error: unknown) => of(ToDoActions.updateTaskFailure({ error })))
@@ -91,7 +91,7 @@ export class ToDoEffects {
   > = createEffect(() => {
     return this.actions$.pipe(
       ofType(ToDoActions.deleteTask),
-      switchMap(({ id }: { id: string }) => {
+      exhaustMap(({ id }: { id: string }) => {
         return this.apiClient.deleteTaskItem(id).pipe(
           map(() => ToDoActions.deleteTaskSuccess()),
           catchError((error: unknown) => of(ToDoActions.deleteTaskFailure({ error })))
