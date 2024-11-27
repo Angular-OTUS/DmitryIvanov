@@ -1,3 +1,5 @@
+import { TrackByFunction } from '@angular/core';
+
 export type TaskItemStatus = 'InProgress' | 'Completed';
 
 export type TaskItem = {
@@ -8,3 +10,5 @@ export type TaskItem = {
 };
 
 export type TaskItems = TaskItem[];
+
+export const taskItemTrackBy: TrackByFunction<TaskItem> = (index: number, taskItem: TaskItem) => taskItem.id;

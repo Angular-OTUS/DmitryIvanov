@@ -1,6 +1,10 @@
 <mat-toolbar color="primary">{{ title }}</mat-toolbar>
 <ul>
-  <li *ngFor="let taskItem of columnTaskItems" cdkDrag [cdkDragData]="taskItem" cdkDragLockAxis="x">
+  <li
+    *ngFor="let taskItem of columnTaskItems; trackBy: taskItemTrackBy"
+    cdkDrag
+    [cdkDragData]="taskItem"
+    cdkDragLockAxis="x">
     <app-to-do-kanban-item
       [taskItem]="taskItem"
       (changeTextEvent)="onChangeTaskText(taskItem, $event)"

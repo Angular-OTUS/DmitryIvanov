@@ -1,5 +1,5 @@
 <ul>
-  <li *ngFor="let taskItem of taskItems" [class.selected]="taskItem.id === selectedTaskId">
+  <li *ngFor="let taskItem of taskItems; trackBy: taskItemTrackBy" [class.selected]="taskItem.id === selectedTaskId">
     <app-to-do-list-item
       [taskItem]="taskItem"
       (selectEvent)="onSelect(taskItem.id)"

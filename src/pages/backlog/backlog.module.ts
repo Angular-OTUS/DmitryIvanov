@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { ToDoFilterComponent, ToDoListComponent, ToDoStatusFilterPipe } from '@entities/to-do-list';
+import { ToDoFilterComponent, ToDoListComponent, ToDoStatusFilterPipe } from '@entities/to-do';
 import { ToDoCreateComponent } from '@features/to-do-create';
 import { RouteParams } from '@share/lib';
 import { MainLayoutComponent, SpinnerComponent, UiKitModule } from '@share/ui';
