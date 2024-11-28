@@ -14,4 +14,18 @@ export const environment: Environment = {
       traceLimit: 75, // maximum stack trace frames to be stored (in case trace option was provided as true)
     }),
   ],
+  languages: [
+    {
+      code: 'en-US',
+      label: 'En',
+      change: ({ protocol, hostname, pathname, search, hash }: URL) =>
+        `${protocol}//${hostname}:4200${pathname}${search}${hash}`,
+    },
+    {
+      code: 'ru',
+      label: 'Ru',
+      change: ({ protocol, hostname, pathname, search, hash }: URL) =>
+        `${protocol}//${hostname}:4201${pathname}${search}${hash}`,
+    },
+  ],
 };

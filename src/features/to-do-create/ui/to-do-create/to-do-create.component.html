@@ -7,14 +7,17 @@
         id="text"
         name="text"
         [(ngModel)]="newTask.text"
+        i18n-placeholder
         placeholder="Name of the task"
         appTaskName />
     </mat-form-field>
     <app-button
       class="button button--add"
       type="submit"
+      i18n-appTooltip
       appTooltip="Click the button to add a task"
-      [disabled]="!!newTaskForm.invalid">
+      [disabled]="!!newTaskForm.invalid"
+      i18n>
       Add task
     </app-button>
   </div>
@@ -25,6 +28,7 @@
         id="description"
         name="description"
         [(ngModel)]="newTask.description"
+        i18n-placeholder
         placeholder="Description of the task"></textarea>
     </mat-form-field>
   </div>
