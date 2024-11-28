@@ -10,13 +10,16 @@
   "scripts": {
     "ng": "npx ng",
     "start": "npx ng serve",
-    "build": "npx ng build",
-    "watch": "npx ng build --watch --configuration development",
+    "start:en": "npx ng serve --configuration=en --port=4200",
+    "start:ru": "npx ng serve --configuration=ru --port=4201",
+    "build": "npx ng build --localize",
+    "watch": "npx ng build  --localize --watch --configuration development",
     "test": "npx ng test",
     "lint": "npx ng lint",
     "lint:fix": "npx ng lint --fix",
     "prettier": "npx prettier --write .",
-    "json-server": "npx json-server --watch db.json"
+    "json-server": "npx json-server --watch db.json",
+    "extract-i18n": "npx ng extract-i18n"
   },
   "private": true,
   "dependencies": {
@@ -48,6 +51,7 @@
     "@angular-eslint/template-parser": "16.3.1",
     "@angular/cli": "^16.2.14",
     "@angular/compiler-cli": "^16.2.0",
+    "@angular/localize": "^16.2.12",
     "@ngrx/eslint-plugin": "^16.3.0",
     "@types/jasmine": "~4.3.0",
     "@typescript-eslint/eslint-plugin": "^5.62.0",

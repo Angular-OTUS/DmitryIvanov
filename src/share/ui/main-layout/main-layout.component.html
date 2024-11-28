@@ -14,6 +14,8 @@
         <mat-icon>menu</mat-icon>
       </button>
       <span>{{ title }}</span>
+      <span class="spacer"></span>
+      <ng-content select=".toolbar-right"></ng-content>
     </mat-toolbar>
     <ng-content></ng-content>
   </mat-sidenav-content>

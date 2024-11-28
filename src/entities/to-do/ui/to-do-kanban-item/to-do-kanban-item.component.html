@@ -6,14 +6,22 @@
   <div class="no-inline-edit">
     <div class="task-text">{{ taskItem?.text }}</div>
 
-    <button mat-icon-button aria-label="edit tack" appTooltip="Click to edit the task text" (click)="onEditText()">
+    <button
+      mat-icon-button
+      i18n-aria-label
+      aria-label="edit tack"
+      i18n-appTooltip
+      appTooltip="Click to edit the task text"
+      (click)="onEditText()">
       <mat-icon>edit_note</mat-icon>
     </button>
 
     <app-button
       (clickEvent)="onDelete()"
+      i18n-appTooltip
       appTooltip="Click the button to delete the task"
-      class="button button--delete">
+      class="button button--delete"
+      i18n>
       Delete
     </app-button>
   </div>

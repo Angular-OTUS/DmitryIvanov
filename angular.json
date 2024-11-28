@@ -13,10 +13,21 @@
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
+      "i18n": {
+        "sourceLocale": "en-US",
+        "locales": {
+          "ru": {
+            "translation": "src/locale/messages.ru.xlf"
+          }
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "localize": true,
+            "i18nMissingTranslation": "warning",
+            "i18nDuplicateTranslation": "warning",
             "outputPath": "dist/to-do-list",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -56,6 +67,12 @@
                   "with": "src/environments/environment.development.ts"
                 }
               ]
+            },
+            "en": {
+              "localize": ["en-US"]
+            },
+            "ru": {
+              "localize": ["ru"]
             }
           },
           "defaultConfiguration": "production"
@@ -68,9 +85,15 @@
             },
             "development": {
               "browserTarget": "ToDoList:build:development"
+            },
+            "en": {
+              "browserTarget": "ToDoList:build:development,en"
+            },
+            "ru": {
+              "browserTarget": "ToDoList:build:development,ru"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development,en"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",

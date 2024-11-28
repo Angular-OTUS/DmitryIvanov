@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { ToDoFilterComponent, ToDoListComponent, ToDoStatusFilterPipe } from '@entities/to-do';
+import { ChangeLanguageComponent } from '@features/change-language';
 import { ToDoCreateComponent } from '@features/to-do-create';
 import { RouteParams } from '@share/lib';
 import { MainLayoutComponent, SpinnerComponent, UiKitModule } from '@share/ui';
@@ -35,6 +36,7 @@ const routes: Routes = [
     ToDoFilterComponent,
     SpinnerComponent,
     ToDoStatusFilterPipe,
+    ChangeLanguageComponent,
   ],
   exports: [RouterModule],
 })

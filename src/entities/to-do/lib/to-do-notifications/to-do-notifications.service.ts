@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 
 import { ToastData } from '@share/lib';
 
+declare const $localize: (messageParts: TemplateStringsArray, ...expressions: unknown[]) => string;
+
 @Injectable({
   providedIn: 'root',
 })
@@ -19,15 +21,15 @@ export class ToDoNotificationsService {
   }
 
   public notifyAddTask(): void {
-    this.successSubject.next({ text: 'Task added', type: 'success' });
+    this.successSubject.next({ text: $localize`Task added`, type: 'success' });
   }
 
   public notifyUpdateTask(): void {
-    this.successSubject.next({ text: 'Task updated', type: 'success' });
+    this.successSubject.next({ text: $localize`Task updated`, type: 'success' });
   }
 
   public notifyDeleteTask(): void {
-    this.successSubject.next({ text: 'Task removed', type: 'warning' });
+    this.successSubject.next({ text: $localize`Task removed`, type: 'warning' });
   }
 
   public notifyFailure(msg: string): void {

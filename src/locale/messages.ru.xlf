@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en-US" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="7430267773254356085" datatype="html">
+        <source>Task added</source>
+        <target>Задача добавлена</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/entities/to-do/lib/to-do-notifications/to-do-notifications.service.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6419601202667262693" datatype="html">
+        <source>Task updated</source>
+        <target>Задача обновлена</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/entities/to-do/lib/to-do-notifications/to-do-notifications.service.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4884157281258972072" datatype="html">
+        <source>Task removed</source>
+        <target>Задача удалена</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/entities/to-do/lib/to-do-notifications/to-do-notifications.service.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3000289367958461065" datatype="html">
+        <source>Filter task list by status:</source>
+        <target>Фильтровать список задач по статусу:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/entities/to-do/ui/to-do-filter/to-do-filter.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6582092176302870669" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>hourglass_empty<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> In progress </source>
+        <target>Ожидают выполнения</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/entities/to-do/ui/to-do-filter/to-do-filter.component.html</context>
+          <context context-type="linenumber">4,6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6609439859112163468" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>verified<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Completed </source>
+        <target>Выполнены</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/entities/to-do/ui/to-do-filter/to-do-filter.component.html</context>
+          <context context-type="linenumber">8,10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5609749623856350805" datatype="html">
+        <source>Change the task</source>
+        <target>Изменить задачу</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/entities/to-do/ui/to-do-inline-edit/to-do-inline-edit.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3768927257183755959" datatype="html">
+        <source>Save</source>
+        <target>Сохранить</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/entities/to-do/ui/to-do-inline-edit/to-do-inline-edit.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5992737907042259984" datatype="html">
+        <source>edit tack</source>
+        <target>Редактировать задачу</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/entities/to-do/ui/to-do-kanban-item/to-do-kanban-item.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/entities/to-do/ui/to-do-list-item/to-do-list-item.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3749197543032824500" datatype="html">
+        <source>Click to edit the task text</source>
+        <target>Нажмите, чтобы изменить название задачи</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/entities/to-do/ui/to-do-kanban-item/to-do-kanban-item.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/entities/to-do/ui/to-do-list-item/to-do-list-item.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3564234925783360223" datatype="html">
+        <source>Click the button to delete the task</source>
+        <target>Нажмите, чтобы удалить задачу</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/entities/to-do/ui/to-do-kanban-item/to-do-kanban-item.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/entities/to-do/ui/to-do-list-item/to-do-list-item.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6660925946511264619" datatype="html">
+        <source> Delete </source>
+        <target>Удалить</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/entities/to-do/ui/to-do-kanban-item/to-do-kanban-item.component.html</context>
+          <context context-type="linenumber">24,26</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/entities/to-do/ui/to-do-list-item/to-do-list-item.component.html</context>
+          <context context-type="linenumber">28,30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3307214558906712688" datatype="html">
+        <source>In progress</source>
+        <target>Ожидают выполнения</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/entities/to-do/ui/to-do-kanban/to-do-kanban.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1161299114153631702" datatype="html">
+        <source>Completed</source>
+        <target>Выполнены</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/entities/to-do/ui/to-do-kanban/to-do-kanban.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8221886798628365594" datatype="html">
+        <source>Click on a task to see its description</source>
+        <target>Нажмите на задачу, чтобы увидеть ее описание</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/entities/to-do/ui/to-do-list-item/to-do-list-item.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4403734630720760121" datatype="html">
+        <source>Name of the task</source>
+        <target>Название задачи</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/features/to-do-create/ui/to-do-create/to-do-create.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8478406360063237914" datatype="html">
+        <source>Click the button to add a task</source>
+        <target>Нажмите кнопку, чтобы добавить задачу</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/features/to-do-create/ui/to-do-create/to-do-create.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2375161396593426452" datatype="html">
+        <source> Add task </source>
+        <target>Добавить задачу</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/features/to-do-create/ui/to-do-create/to-do-create.component.html</context>
+          <context context-type="linenumber">20,22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7922082284244499633" datatype="html">
+        <source>Description of the task</source>
+        <target>Описание задачи</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/features/to-do-create/ui/to-do-create/to-do-create.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7819314041543176992" datatype="html">
+        <source>Close</source>
+        <target>Закрыть</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/features/toast/ui/toast/toast.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
